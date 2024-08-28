@@ -57,7 +57,13 @@ const TextImage: FC<TextImageProps> = ({
         )}
       </div>
       <div className="w-full sm:w-2/5 h-[300px] relative">
-        <Image src={img} alt="img" layout="fill" objectFit="cover" />
+        <Image
+          src={img}
+          alt="img"
+          fill
+          style={{ objectFit: "cover" }}
+          priority
+        />
       </div>
     </div>
   );

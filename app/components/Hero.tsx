@@ -81,14 +81,15 @@ const Hero: React.FC = () => {
       {/* slide control dots */}
       <div>
         <div className="flex flex-row space-x-2 mt-2 w-full justify-center">
-          {slides.map((_, idx) => (
-            <div
-              key={idx}
+          {slides.map((slide, idx) => (
+            <button
+              key={slide.title} // Use a unique identifier for the key
               className={`w-1 h-1 rounded-full ${
                 idx === slideIndex ? "bg-white" : "bg-gray-500"
               }`}
               onClick={() => setSlideIndex(idx)}
-            ></div>
+              tabIndex={0} // Add tabIndex to make it focusable
+            ></button>
           ))}
         </div>
       </div>

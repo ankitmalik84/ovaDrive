@@ -76,8 +76,8 @@ export default function OurTeam() {
                   <Image
                     src={member.img}
                     alt={member.name}
-                    layout="fill"
-                    objectFit="cover"
+                    fill
+                    style={{ objectFit: "cover" }}
                     priority
                   />
                 </div>
@@ -99,8 +99,8 @@ export default function OurTeam() {
                       <Image
                         src={teamMembers[nextIndex1].img}
                         alt={teamMembers[nextIndex1].name}
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        style={{ objectFit: "cover" }}
                         priority
                       />
                     </div>
