@@ -127,7 +127,7 @@ const NavBar: React.FC = () => {
           </div>
         </>
       ) : (
-        <div className="fixed z-10 flex justify-between w-[96%] md:w-11/12 lg:w-9/12 border-[1px] border-white rounded-full items-center px-1 sm:p-2 bg-customGray top-6 sm:top-4">
+        <div className="fixed z-10 flex justify-between w-[96%] md:w-11/12 lg:w-9/12 border border-[#ffffff88] rounded-full items-center px-1 sm:p-2 bg-white bg-opacity-30 backdrop-blur-md top-6 sm:top-4">
           <div className="flex items-center space-x-2">
             <Link href="/">
               <img
