@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
           backgroundImage: `url(/images/hero.png)`,
         }}
       >
-        <div className="h-full backdrop-blur-sm flex flex-col">
+        <div className="h-full backdrop-blur-md flex flex-col">
           {/* Upper Content Section */}
           <div className="relative mt-16 sm:mt-20 md:mt-24 flex flex-col text-center space-y-4">
             <div className="text-white opacity-75 text-md">
