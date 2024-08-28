@@ -45,12 +45,12 @@ export default function OurTeam() {
   };
 
   return (
-    <div className=" mx-auto h-[500px]  w-full">
+    <div className=" mx-auto h-[700px] md:h-[400px] lg:h-[500px]  w-full">
       <h1 className="text-3xl font-bold mb-10">Our Team</h1>
       <div className="flex flex-col md:flex-row w-full">
         {/* Left Side: One slider for content, one for images */}
-        <div className="w-full lg:w-1/2 flex">
-          <div className="w-1/2">
+        <div className="w-full lg:w-1/2 flex flex-col sm:flex-row">
+          <div className="w-full sm:w-1/2">
             <Slider {...leftSliderSettings}>
               {teamMembers.map((member) => (
                 <div key={member.id} className="h-[280px] sm:h-[420px] w-full">
@@ -66,7 +66,7 @@ export default function OurTeam() {
               ))}
             </Slider>
           </div>
-          <div className="w-1/2">
+          <div className="w-full sm:w-1/2">
             <Slider {...leftSliderSettings}>
               {teamMembers.map((member) => (
                 <div
