@@ -1,17 +1,20 @@
 "use client";
+
+import { useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 import Hero from "@/app/components/Hero";
-import data from "./data.json";
 import SliderComp from "@/app/components/common/Slider";
 import Model from "@/app/components/Model";
 import HighLightText2 from "@/app/components/common/HighLightText2";
 import TextImage from "@/app/components/common/TextImage";
 import OurTeam from "@/app/components/OurTeam";
-import { useRef, useEffect } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AOS from "aos";
-import "aos/dist/aos.css";
 import NavBar from "./components/NavBar";
+
+import data from "./data.json";
 
 interface ContentItem {
   id: number;
@@ -33,13 +36,14 @@ interface Data {
   slider1: SliderData[];
 }
 
-const Home = () => {
+export default function Home() {
   const main = useRef<HTMLDivElement>(null);
   const hero = useRef<HTMLDivElement>(null);
   const text = useRef<HTMLDivElement>(null);
-  gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     if (main.current && hero.current && text.current) {
       const ctx = gsap.context(() => {
         const isMobile = window.innerWidth <= 624;
@@ -55,7 +59,7 @@ const Home = () => {
           duration: 1,
           scrollTrigger: {
             trigger: main.current,
-            start: isMobile ? "top 100px" : "-=18% top",
+            start: isMobile ? "top 100px" : "top 70px",
             end: isMobile ? "end 80px" : "+=40%",
             scrub: true,
             pin: true,
@@ -77,15 +81,17 @@ const Home = () => {
             },
           },
         });
-      }, main);
-
-      AOS.init({
-        duration: 900,
-        easing: "ease-out-cubic",
       });
 
       return () => ctx.revert();
     }
+  }, []);
+
+  useEffect(() => {
+    AOS.init({
+      duration: 900,
+      easing: "ease-out-cubic",
+    });
   }, []);
 
   return (
@@ -102,14 +108,14 @@ const Home = () => {
           ref={text}
           className="absolute inset-0 flex items-center justify-center h-[440px] sm:h-[500px] bg-customBlack"
         >
-          <h1 className="text-[16vw] md:text-[12vw] font-extrabold bg-texture-gradient2 sm:bg-texture-gradient  bg-clip-text text-transparent">
+          <h1 className="text-[16vw] md:text-[12vw] font-extrabold bg-texture-gradient2 sm:bg-texture-gradient bg-clip-text text-transparent">
             OVA DRIVE
           </h1>
         </div>
       </div>
       <div>
-        <div className="flex flex-col gap-8 ">
-          {data.content.map((item: ContentItem) => (
+        <div className="flex flex-col gap-8">
+          {(data as Data).content.map((item: ContentItem) => (
             <TextImage
               aos={item.aos}
               key={item.id}
@@ -128,24 +134,20 @@ const Home = () => {
         >
           <HighLightText2
             text={
-              "OvaDrive isn’t just about saving your chats," +
-              "\n" +
-              "It's the beginning to make your Soul Immortal"
+              "OvaDrive isn't just about saving your chats,\nIt's the beginning to make your Soul Immortal"
             }
             index={13}
           />
         </div>
-
         <div data-aos="zoom-out" id="about-us" className="py-2 sm:py-10">
           <div
             className="flex flex-col my-24 h-[380px]"
             data-aos="slide-up"
             data-aos-delay="10"
           >
-            <SliderComp data={data.slider1} heading="OvalDrive" />
+            <SliderComp data={(data as Data).slider1} heading="OvalDrive" />
           </div>
         </div>
-
         <div
           className="py-12 sm:py-16"
           id="our-team"
@@ -154,13 +156,10 @@ const Home = () => {
         >
           <OurTeam />
         </div>
-
         <div className="mt-0 sm:mt-44" data-aos="fade-up">
           <Model />
         </div>
       </div>
     </div>
   );
-};
-
-export default Home;
+}
