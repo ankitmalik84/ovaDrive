@@ -18,7 +18,7 @@ const Hero: React.FC = () => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [slides.length]);
 
   return (
     <div className="w-full h-full flex flex-col">
