@@ -102,7 +102,7 @@ const Home = () => {
           ref={text}
           className="absolute inset-0 flex items-center justify-center h-[440px] sm:h-[500px] bg-customBlack"
         >
-          <h1 className="text-[17vw] md:text-[12vw] font-extrabold bg-texture-gradient2 sm:bg-texture-gradient  bg-clip-text text-transparent">
+          <h1 className="text-[16vw] md:text-[12vw] font-extrabold bg-texture-gradient2 sm:bg-texture-gradient  bg-clip-text text-transparent">
             OVA DRIVE
           </h1>
         </div>

@@ -58,7 +58,7 @@ export default function OurTeam() {
                     <h2 className="text-xl sm:text-2xl font-semibold">
                       {member.name}
                     </h2>
-                    <p className="mt-2 sm:mt-4 text-sm sm:text-base">
+                    <p className="mt-2 sm:mt-4 text-sm sm:text-base leading-5 sm:leading-6">
                       {member.data}
                     </p>
                   </div>
