@@ -2,6 +2,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import data from "@/app/data.json";
+import Image from "next/image";
 
 interface TeamMember {
   id: number;
@@ -68,11 +69,16 @@ export default function OurTeam() {
           <div className="w-1/2">
             <Slider {...leftSliderSettings}>
               {teamMembers.map((member) => (
-                <div key={member.id} className="h-[280px] sm:h-[420px] w-full">
-                  <img
-                    className="object-cover w-full h-full border-2"
+                <div
+                  key={member.id}
+                  className="h-[280px] sm:h-[420px] w-full border-2 relative"
+                >
+                  <Image
                     src={member.img}
                     alt={member.name}
+                    layout="fill"
+                    objectFit="cover"
+                    priority
                   />
                 </div>
               ))}
@@ -89,11 +95,15 @@ export default function OurTeam() {
               return (
                 <div key={index} className="h-[420px] pt-[55px]">
                   <div className="p-1">
-                    <img
-                      className="h-[360px] w-full object-cover border-2"
-                      src={teamMembers[nextIndex1].img}
-                      alt={teamMembers[nextIndex1].name}
-                    />
+                    <div className="h-[360px] w-full border-2 relative">
+                      <Image
+                        src={teamMembers[nextIndex1].img}
+                        alt={teamMembers[nextIndex1].name}
+                        layout="fill"
+                        objectFit="cover"
+                        priority
+                      />
+                    </div>
                   </div>
                 </div>
               );

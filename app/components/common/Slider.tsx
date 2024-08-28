@@ -3,6 +3,7 @@ import { FC } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import Image from "next/legacy/image";
 
 interface SliderItem {
   id: number;
@@ -18,7 +19,7 @@ const SliderComp: FC<SliderCompProps> = ({ heading, data }) => {
   const settings = {
     dots: false,
     infinite: true,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
@@ -27,7 +28,7 @@ const SliderComp: FC<SliderCompProps> = ({ heading, data }) => {
     arrows: false,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1224,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,
@@ -58,12 +59,16 @@ const SliderComp: FC<SliderCompProps> = ({ heading, data }) => {
       <h2 className="text-white text-3xl mb-8">{heading}</h2>
       <Slider {...settings}>
         {data.map((item) => (
-          <div key={item.id} className="h-[300px] mx-2">
-            <img
-              className="h-full w-full object-cover rounded-md px-1"
-              src={item.img}
-              alt="Slider Image"
-            />
+          <div key={item.id} className="px-1">
+            <div className="relative h-[300px] w-full">
+              <Image
+                src={item.img}
+                alt="Slider Image"
+                layout="fill"
+                objectFit="cover"
+                priority
+              />
+            </div>
           </div>
         ))}
       </Slider>

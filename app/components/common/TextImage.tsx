@@ -1,6 +1,6 @@
 import { FC } from "react";
 import HighLightText from "./HighLightText";
-
+import Image from "next/image";
 interface TextImageProps {
   title: string;
   description?: string;
@@ -56,8 +56,8 @@ const TextImage: FC<TextImageProps> = ({
           </p>
         )}
       </div>
-      <div className="w-full sm:w-2/5">
-        <img src={img} alt="img" className="w-full h-[300px] object-cover" />
+      <div className="w-full sm:w-2/5 h-[300px] relative">
+        <Image src={img} alt="img" layout="fill" objectFit="cover" />
       </div>
     </div>
   );

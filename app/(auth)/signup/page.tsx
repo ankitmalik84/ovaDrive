@@ -9,7 +9,7 @@ import HeadPara from "@/app/components/common/HeadPara";
 import BottomWarning from "@/app/components/common/ButtonWarning";
 import { signIn, useSession } from "next-auth/react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
-import { Renderable } from "react-hot-toast/headless";
+import Image from "next/image";
 
 export default function Signup(): any {
   const session = useSession();
@@ -37,7 +37,7 @@ export default function Signup(): any {
     toast
       .promise(res, {
         loading: "Registering...",
-        success: "Registration successful!", // Immediate success message
+        success: "Registration successful!",
         error: (err) => {
           const errorCode = err.response?.status;
           if (errorCode === 400) {
@@ -74,6 +74,7 @@ export default function Signup(): any {
                   <Input
                     id="name"
                     label="Name"
+                    type="text"
                     register={register}
                     placeholder="Name"
                     errors={errors}
@@ -111,11 +112,12 @@ export default function Signup(): any {
             </div>
           </div>
         </div>
-        <div className="lg:w-1/2 hidden lg:block">
-          <img
+        <div className="lg:w-1/2 hidden lg:block relative">
+          <Image
             src="/images/hero.png"
             alt="side image"
-            className="object-cover h-full w-full"
+            layout="fill"
+            objectFit="cover"
           />
         </div>
       </div>

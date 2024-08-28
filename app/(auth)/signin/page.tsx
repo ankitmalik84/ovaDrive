@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import Image from "next/image";
 
 export default function Signin() {
   const session = useSession();
@@ -98,11 +99,12 @@ export default function Signin() {
           </div>
         </div>
         {/* Right side Image */}
-        <div className="lg:w-1/2 hidden lg:block">
-          <img
+        <div className="lg:w-1/2 hidden lg:block relative">
+          <Image
             src="/images/hero.png"
             alt="side image"
-            className="object-cover h-full w-full"
+            layout="fill"
+            objectFit="cover"
           />
         </div>
       </div>{" "}
