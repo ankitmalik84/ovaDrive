@@ -94,7 +94,7 @@ export default function Home() {
   useEffect(() => {
     AOS.init({
       duration: 900,
-      easing: "ease-out-cubic",
+      easing: "ease-in",
     });
     AOS.refresh();
   }, []);
@@ -189,13 +189,13 @@ export default function Home() {
         {/* Hero section first layer (text overlay) */}
         <svg
           ref={heroFirst}
-          className="absolute inset-0 flex items-center justify-center autoAlpha-0"
-          height="100%"
-          width="100%"
+          className="absolute inset-0 flex items-center justify-center autoAlpha-0 overflow-hidden"
+          height="102vh"
+          width="100vw"
         >
           <defs>
             <mask id="mask">
-              <rect width="100%" height="100%" fill="white" />
+              <rect width="100vw" height="102vh" fill="white" />
               <text
                 x="50%"
                 y="50%"
@@ -208,7 +208,7 @@ export default function Home() {
               </text>
             </mask>
           </defs>
-          <rect width="100%" height="100%" fill="black" mask="url(#mask)" />
+          <rect width="100vw" height="102vh" fill="black" mask="url(#mask)" />
         </svg>
       </div>
       {/* components */}
