@@ -48,37 +48,46 @@ export default function Home() {
       const ctx = gsap.context(() => {
         const isMobile = window.innerWidth <= 624;
 
+        // Set initial states
         gsap.set(text.current, {
           opacity: 0,
-          scale: 10,
+          scale: 20,
           pointerEvents: "none",
         });
 
-        gsap.to(hero.current, {
-          opacity: 0,
-          duration: 1,
+        // Text animation
+        const textTl = gsap.timeline({
           scrollTrigger: {
+            markers: true,
             trigger: main.current,
             start: isMobile ? "top 100px" : "top 70px",
-            end: isMobile ? "end 80px" : "+=40%",
+            end: isMobile ? "+=80% top" : "+=50%",
             scrub: true,
             pin: true,
-            onEnter: () => {
-              gsap.to(text.current, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.5,
-                pointerEvents: "auto",
-              });
-            },
-            onLeaveBack: () => {
-              gsap.to(text.current, {
-                opacity: 0,
-                scale: 20,
-                duration: 1,
-                pointerEvents: "none",
-              });
-            },
+          },
+        });
+
+        textTl.to(text.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.5,
+          pointerEvents: "auto",
+        });
+        // .to(text.current, {
+        //   scale: 20,
+        //   duration: 0.5,
+        // });
+
+        // Hero animation
+        gsap.to(hero.current, {
+          opacity: 0,
+          duration: 0.5,
+          scrollTrigger: {
+            markers: true,
+            trigger: main.current,
+            start: "+=50% top",
+            end: "+=400%",
+            scrub: true,
           },
         });
       });
@@ -106,7 +115,7 @@ export default function Home() {
         </div>
         <div
           ref={text}
-          className="absolute inset-0 flex items-center justify-center h-[440px] sm:h-[500px] bg-customBlack"
+          className=" absolute inset-0 flex items-center justify-center h-[480px] sm:h-[500px] bg-customBlack"
         >
           <h1 className="text-[16vw] md:text-[12vw] font-extrabold bg-texture-gradient2 sm:bg-texture-gradient bg-clip-text text-transparent">
             OVA DRIVE
