@@ -21,3 +21,12 @@
 *:hover::-webkit-scrollbar-thumb {
   visibility: visible;
 }
+
+svg rect {
+  fill: white;
+  mask: url(#mask);
+}
+
+svg > rect {
+  fill: #212121;
+}

@@ -1,128 +1,220 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, use } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import Hero from "@/app/components/Hero";
+import Button from "@/app/components/common/Button";
 import SliderComp from "@/app/components/common/Slider";
 import Model from "@/app/components/Model";
 import HighLightText2 from "@/app/components/common/HighLightText2";
-import TextImage from "@/app/components/common/TextImage";
 import OurTeam from "@/app/components/OurTeam";
+import TextImage from "@/app/components/common/TextImage";
 import NavBar from "./components/NavBar";
 
 import data from "./data.json";
 
-interface ContentItem {
-  id: number;
+interface Slide {
   title: string;
   description: string;
-  highlightIndex: number;
-  img: string;
-  position: string;
-  aos: string;
-}
-
-interface SliderData {
-  id: number;
-  img: string;
-}
-
-interface Data {
-  content: ContentItem[];
-  slider1: SliderData[];
+  subtitle: string;
 }
 
 export default function Home() {
-  const main = useRef<HTMLDivElement>(null);
-  const hero = useRef<HTMLDivElement>(null);
-  const text = useRef<HTMLDivElement>(null);
+  const heroThird = useRef<HTMLDivElement>(null);
+  const heroSecond = useRef<HTMLDivElement>(null);
+  const heroFirst = useRef<SVGSVGElement>(null);
+  const heroSection = useRef<HTMLDivElement>(null);
+
+  const [slideIndex, setSlideIndex] = useState(0);
+  const slides: Slide[] = data.slides;
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
+    AOS.init();
 
-    if (main.current && hero.current && text.current) {
-      const ctx = gsap.context(() => {
-        const isMobile = window.innerWidth <= 624;
+    const interval = setInterval(() => {
+      setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 2000);
+    const scaleValue = window.innerWidth <= 768 ? 32 : 25;
+    gsap.set(heroFirst.current, {
+      scale: scaleValue,
+      y: window.innerWidth <= 768 ? 0 : -1151,
+      x: window.innerWidth <= 768 ? 0 : 450,
+      autoAlpha: 0,
+    });
 
-        // Set initial states
-        gsap.set(text.current, {
-          opacity: 0,
-          scale: 20,
-          pointerEvents: "none",
-        });
+    gsap.to(heroFirst.current, {
+      scale: 1,
+      y: 0,
+      x: 0,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: heroSection.current,
+        start: "top top+=80px",
+        end: "bottom top+=30px",
+        scrub: true,
+        onUpdate: (self) => {
+          if (window.innerWidth >= 768) {
+            if (self.progress > 0.08) {
+              gsap.to(heroFirst.current, { autoAlpha: 1 });
+            } else if (self.progress < 0.08) {
+              gsap.to(heroFirst.current, { autoAlpha: 0 });
+            }
+          } else {
+            if (self.progress > 0.2) {
+              gsap.to(heroFirst.current, { autoAlpha: 1 });
+            } else if (self.progress < 0.2) {
+              gsap.to(heroFirst.current, { autoAlpha: 0 });
+            }
+          }
+        },
+      },
+    });
 
-        // Text animation
-        const textTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: main.current,
-            start: isMobile ? "top 100px" : "top 70px",
-            end: isMobile ? "+=80% top" : "+=50%",
-            scrub: true,
-            pin: true,
-          },
-        });
+    gsap.to(heroSecond.current, {
+      yPercent: -100,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: heroSection.current,
+        start: "top top+=80px",
+        end: "bottom top+=120px",
+        scrub: true,
+        pin: true,
+      },
+    });
 
-        textTl.to(text.current, {
-          opacity: 1,
-          scale: 1,
-          duration: 0.5,
-          pointerEvents: "auto",
-        });
-        // .to(text.current, {
-        //   scale: 20,
-        //   duration: 0.5,
-        // });
-
-        // Hero animation
-        gsap.to(hero.current, {
-          opacity: 0,
-          duration: 0.5,
-          scrollTrigger: {
-            trigger: main.current,
-            start: "+=50% top",
-            end: "+=400%",
-            scrub: true,
-          },
-        });
-      });
-
-      return () => ctx.revert();
-    }
-  }, []);
-
+    return () => {
+      clearInterval(interval);
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, [slides.length]);
   useEffect(() => {
     AOS.init({
       duration: 900,
       easing: "ease-out-cubic",
     });
+    AOS.refresh();
   }, []);
 
   return (
-    <div className="px-4 lg:px-12 pt-20 sm:pt-16 overflow-x-clip">
+    <div className="px-2 lg:px-12 pt-20 sm:pt-14 overflow-x-clip">
       <NavBar />
+      {/* Hero Section */}
       <div
-        ref={main}
-        className="relative h-[460px] sm:h-[500px] overflow-hidden"
+        ref={heroSection}
+        className="relative h-[70vh] sm:h-[92vh] overflow-hidden"
       >
-        <div ref={hero} className="absolute inset-0">
-          <Hero />
-        </div>
+        {/* Hero section third layer (background image) */}
         <div
-          ref={text}
-          className=" absolute inset-0 flex items-center justify-center h-[480px] sm:h-[500px] bg-customBlack"
+          id="hero"
+          ref={heroThird}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url(/images/hero.png)",
+            filter: "blur(4px)",
+          }}
+        ></div>
+
+        {/* Hero section second layer (content) */}
+        <div
+          ref={heroSecond}
+          className="absolute inset-0 flex flex-col items-center px-4 lg:px-12"
         >
-          <h1 className="text-[16vw] md:text-[12vw] font-extrabold bg-texture-gradient2 sm:bg-texture-gradient bg-clip-text text-transparent">
-            OVA DRIVE
-          </h1>
+          <div className="w-full max-w-4xl text-center space-y-4 flex flex-col justify-center h-full">
+            <div className="text-white opacity-75 text-md">
+              The Ultimate AI Assistant
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+              {slides[slideIndex].title}
+            </h2>
+            <div className="w-5/6 sm:w-3/6 mx-auto">
+              <p className="mt-2 text-white opacity-75">
+                {slides[slideIndex].description}
+              </p>
+              <p className="font-bold text-white">
+                {slides[slideIndex].subtitle}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 flex flex-row space-x-2 justify-end w-full">
+            <Button
+              text="Android App"
+              bgcolor="bg-customPurple"
+              textcolor="text-white"
+              bordercolor="border-customPurple"
+              height="h-9"
+              width="w-28 sm:w-28"
+              onClickFn={() => (window.location.href = "/")}
+            />
+            <Button
+              text="iOS App"
+              bgcolor="bg-customPurple"
+              textcolor="text-white"
+              bordercolor="border-customPurple"
+              height="h-9"
+              width="w-20 sm:w-28"
+              onClickFn={() => (window.location.href = "/")}
+            />
+            <Button
+              text="Learn More"
+              bgcolor="bg-transparent"
+              textcolor="text-white"
+              bordercolor="border-white"
+              height="h-9"
+              width="w-24 sm:w-28"
+              onClickFn={() => (window.location.href = "/")}
+            />
+          </div>
+
+          <div className="mt-8">
+            <div className="hidden sm:flex flex-row space-x-2 justify-center">
+              {slides.map((slide, idx) => (
+                <button
+                  key={slide.title}
+                  className={`w-2 h-2 rounded-full ${
+                    idx === slideIndex ? "bg-white" : "bg-gray-500"
+                  }`}
+                  onClick={() => setSlideIndex(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                ></button>
+              ))}
+            </div>
+          </div>
         </div>
+
+        {/* Hero section first layer (text overlay) */}
+        <svg
+          ref={heroFirst}
+          className="absolute inset-0 flex items-center justify-center autoAlpha-0"
+          height="100%"
+          width="100%"
+        >
+          <defs>
+            <mask id="mask">
+              <rect width="100%" height="100%" fill="white" />
+              <text
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dy=".35em"
+                className="text-[16vw] md:text-[12vw] font-extrabold"
+                fill="black"
+              >
+                OVA DRIVE
+              </text>
+            </mask>
+          </defs>
+          <rect width="100%" height="100%" fill="black" mask="url(#mask)" />
+        </svg>
       </div>
+      {/* components */}
       <div>
         <div className="flex flex-col gap-8">
-          {(data as Data).content.map((item: ContentItem) => (
+          {data.content.map((item: any) => (
             <TextImage
               aos={item.aos}
               key={item.id}
@@ -152,7 +244,7 @@ export default function Home() {
             data-aos="slide-up"
             data-aos-delay="10"
           >
-            <SliderComp data={(data as Data).slider1} heading="OvalDrive" />
+            <SliderComp data={data.slider1} heading="OvalDrive" />
           </div>
         </div>
         <div
