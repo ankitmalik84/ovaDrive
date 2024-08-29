@@ -58,7 +58,6 @@ export default function Home() {
         // Text animation
         const textTl = gsap.timeline({
           scrollTrigger: {
-            markers: true,
             trigger: main.current,
             start: isMobile ? "top 100px" : "top 70px",
             end: isMobile ? "+=80% top" : "+=50%",
@@ -83,7 +82,6 @@ export default function Home() {
           opacity: 0,
           duration: 0.5,
           scrollTrigger: {
-            markers: true,
             trigger: main.current,
             start: "+=50% top",
             end: "+=400%",
