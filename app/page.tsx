@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState, use } from "react";
+import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -32,12 +33,13 @@ export default function Home() {
   const slides: Slide[] = data.slides;
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     AOS.init();
 
     const interval = setInterval(() => {
       setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
     }, 2000);
+
     const scaleValue = window.innerWidth <= 768 ? 32 : 25;
     gsap.set(heroFirst.current, {
       scale: scaleValue,
@@ -46,16 +48,12 @@ export default function Home() {
       autoAlpha: 0,
     });
 
-    gsap.to(heroFirst.current, {
-      scale: 1,
-      y: 0,
-      x: 0,
-      ease: "power2.inOut",
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: heroSection.current,
         start: "top top+=80px",
-        end: "bottom top+=30px",
-        scrub: true,
+        end: "bottom bottom",
+        pin: true,
         onUpdate: (self) => {
           if (window.innerWidth >= 768) {
             if (self.progress > 0.08) {
@@ -71,20 +69,35 @@ export default function Home() {
             }
           }
         },
+        toggleActions: "reverse play play reverse",
       },
     });
 
-    gsap.to(heroSecond.current, {
-      yPercent: -100,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: heroSection.current,
-        start: "top top+=80px",
-        end: "bottom top+=120px",
-        scrub: true,
-        pin: true,
-      },
+    tl.to(heroFirst.current, {
+      scale: 1,
+      y: 0,
+      x: 0,
+      ease: "expoScale",
+      duration: 1,
     });
+
+    tl.to(
+      heroSecond.current,
+      {
+        yPercent: -100,
+        ease: "expo.inOut",
+        duration: 1.2,
+        onComplete: () => {
+          // Scroll the window a little bit after the animation completes
+          gsap.to(window, {
+            scrollTo: "600", // Scroll down by 600px
+            duration: 1.2, // Duration for scrolling
+            ease: "power1.inOut", // Easing for smoothness
+          });
+        },
+      },
+      "<"
+    );
 
     return () => {
       clearInterval(interval);
