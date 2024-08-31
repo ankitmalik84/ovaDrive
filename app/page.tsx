@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -17,28 +17,15 @@ import NavBar from "./components/NavBar";
 
 import data from "./data.json";
 
-interface Slide {
-  title: string;
-  description: string;
-  subtitle: string;
-}
-
 export default function Home() {
   const heroThird = useRef<HTMLDivElement>(null);
   const heroSecond = useRef<HTMLDivElement>(null);
   const heroFirst = useRef<SVGSVGElement>(null);
   const heroSection = useRef<HTMLDivElement>(null);
 
-  const [slideIndex, setSlideIndex] = useState(0);
-  const slides: Slide[] = data.slides;
-
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
     AOS.init();
-
-    const interval = setInterval(() => {
-      setSlideIndex((prevIndex) => (prevIndex + 1) % slides.length);
-    }, 2000);
 
     const scaleValue = window.innerWidth <= 768 ? 32 : 25;
     gsap.set(heroFirst.current, {
@@ -100,10 +87,9 @@ export default function Home() {
     );
 
     return () => {
-      clearInterval(interval);
       ScrollTrigger.getAll().forEach((t) => t.kill());
     };
-  }, [slides.length]);
+  }, []);
   useEffect(() => {
     AOS.init({
       duration: 900,
@@ -118,7 +104,7 @@ export default function Home() {
       {/* Hero Section */}
       <div
         ref={heroSection}
-        className="relative h-[70vh] sm:h-[92vh] overflow-hidden"
+        className="relative h-[70vh] sm:h-[85vh] overflow-hidden"
       >
         {/* Hero section third layer (background image) */}
         <div
@@ -127,33 +113,34 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: "url(/images/hero.png)",
-            filter: "blur(4px)",
+            filter: "blur(8px)",
           }}
         ></div>
-
         {/* Hero section second layer (content) */}
         <div
           ref={heroSecond}
           className="absolute inset-0 flex flex-col items-center px-4 lg:px-12"
         >
-          <div className="w-full max-w-4xl text-center space-y-4 flex flex-col justify-center h-full">
-            <div className="text-white opacity-75 text-md">
+          <div className="w-full max-w-6xl text-center space-y-4 flex flex-col justify-center h-full">
+            <div className="text-white opacity-75 text-md lg:text-lg">
               The Ultimate AI Assistant
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
-              {slides[slideIndex].title}
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-white">
+              Unlock The Power Of Your 2nd Brain
             </h2>
-            <div className="w-5/6 sm:w-3/6 mx-auto">
-              <p className="mt-2 text-white opacity-75">
-                {slides[slideIndex].description}
+            <div className="w-full sm:w-5/6 mx-auto flex flex-col gap-4">
+              <p className="mt-2 text-white opacity-75 text-base lg:text-lg">
+                Ovadrive is designed to turn your phone into an assistant
+                following you everywhere, learning all about your life and
+                helping to utilize that.
               </p>
-              <p className="font-bold text-white">
-                {slides[slideIndex].subtitle}
+              <p className="font-bold text-white text-base lg:text-lg">
+                Own your data, own your life, own your future.
               </p>
             </div>
           </div>
 
-          <div className="mt-8 flex flex-row space-x-2 justify-end w-full">
+          <div className="mt-3 mb-5 flex flex-row space-x-2 justify-end w-full">
             <Button
               text="Android App"
               bgcolor="bg-customPurple"
@@ -182,21 +169,6 @@ export default function Home() {
               onClickFn={() => (window.location.href = "/")}
             />
           </div>
-
-          <div className="mt-8">
-            <div className="hidden sm:flex flex-row space-x-2 justify-center">
-              {slides.map((slide, idx) => (
-                <button
-                  key={slide.title}
-                  className={`w-2 h-2 rounded-full ${
-                    idx === slideIndex ? "bg-white" : "bg-gray-500"
-                  }`}
-                  onClick={() => setSlideIndex(idx)}
-                  aria-label={`Go to slide ${idx + 1}`}
-                ></button>
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* Hero section first layer (text overlay) */}
@@ -210,11 +182,11 @@ export default function Home() {
             <mask id="mask">
               <rect width="100vw" height="102vh" fill="white" />
               <text
-                x="50%"
+                x="48%"
                 y="50%"
                 textAnchor="middle"
                 dy=".35em"
-                className="text-[16vw] md:text-[12vw] font-extrabold"
+                className="text-[16vw] md:text-[12vw] font-extrabold flex justify-center"
                 fill="black"
               >
                 OVA DRIVE
@@ -226,11 +198,12 @@ export default function Home() {
       </div>
       {/* components */}
       <div>
-        <div className="flex flex-col gap-8">
+        {/* text-image section */}
+        <div className="flex flex-col items-center">
           {data.content.map((item: any) => (
             <TextImage
-              aos={item.aos}
               key={item.id}
+              id={item.id}
               title={item.title}
               description={item.description}
               highlightIndex={item.highlightIndex}
@@ -239,11 +212,7 @@ export default function Home() {
             />
           ))}
         </div>
-        <div
-          className="flex w-full lg:w-[64%] mx-auto py-16 sm:py-24"
-          data-aos="zoom-out-up"
-          data-aos-delay="200"
-        >
+        <div className="flex w-full lg:w-[64%] mx-auto py-16 sm:py-24">
           <HighLightText2
             text={
               "OvaDrive isn't just about saving your chats,\nIt's the beginning to make your Soul Immortal"

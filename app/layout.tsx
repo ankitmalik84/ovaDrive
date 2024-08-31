@@ -12,7 +12,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body
+        className={inter.className}
+        style={{ maxWidth: "2500px", margin: "0 auto" }}
+      >
         <AuthContextProvider>
           <ToasterContext />
           {children}
