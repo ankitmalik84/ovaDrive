@@ -22,6 +22,8 @@ export default function Home() {
   const heroSecond = useRef<HTMLDivElement>(null);
   const heroFirst = useRef<SVGSVGElement>(null);
   const heroSection = useRef<HTMLDivElement>(null);
+  const highText = useRef<HTMLDivElement>(null);
+  const highSubText = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -84,6 +86,23 @@ export default function Home() {
         },
       },
       "<"
+    );
+
+    gsap.fromTo(
+      highText.current,
+      { autoAlpha: 0 },
+      {
+        autoAlpha: 1,
+        duration: 1.6,
+        ease: "power1.inOut",
+        pin: true,
+        scrollTrigger: {
+          trigger: highSubText.current,
+          start: "top 90%",
+          end: "bottom 20%",
+          toggleActions: "play reverse play reverse",
+        },
+      }
     );
 
     return () => {
@@ -212,13 +231,18 @@ export default function Home() {
             />
           ))}
         </div>
-        <div className="flex w-full lg:w-[64%] mx-auto py-16 sm:py-24">
-          <HighLightText2
-            text={
-              "OvaDrive isn't just about saving your chats,\nIt's the beginning to make your Soul Immortal"
-            }
-            index={13}
-          />
+        <div
+          className="flex w-full h-[100vh] lg:w-[64%] mx-auto py-16 sm:py-24 items-center"
+          ref={highText}
+        >
+          <div ref={highSubText} className="flex w-full items-center">
+            <HighLightText2
+              text={
+                "OvaDrive isn't just about saving your chats,\nIt's the beginning to make your Soul Immortal"
+              }
+              index={13}
+            />
+          </div>
         </div>
         <div data-aos="zoom-out" id="about-us" className="py-2 sm:py-10">
           <div
