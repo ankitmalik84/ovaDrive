@@ -90,10 +90,11 @@ export default function Home() {
 
     gsap.fromTo(
       highText.current,
-      { autoAlpha: 0 },
+      { autoAlpha: 0, y: 100 },
       {
+        y: 0,
         autoAlpha: 1,
-        duration: 1.6,
+        duration: 0.7,
         ease: "power1.inOut",
         pin: true,
         scrollTrigger: {

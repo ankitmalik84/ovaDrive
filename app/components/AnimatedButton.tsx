@@ -56,8 +56,10 @@ const AnimatedButton: FC<AnimatedButtonProps> = ({
             onClick={onClickFn}
           >
             {/* button text below slide animation */}
-            <span className="absolute inset-0 w-2 h-full bg-customPurple -rotate-[20deg] -left-full group-hover:left-[110%] transition-all duration-200 ease-out"></span>
-            <span className="absolute inset-0 w-1 h-full bg-customPurple -rotate-[20deg] -left-full group-hover:left-[110%] transition-all duration-200 ease-out"></span>
+            <span className="absolute inset-0 flex -left-full group-hover:left-[110%] transition-all duration-200 ease-out">
+              <span className="absolute inset-0 w-1 h-full bg-customPurple -rotate-[20deg] mx-2"></span>
+              <span className="absolute inset-0 w-[0.35rem] h-full bg-customPurple -rotate-[20deg] "></span>
+            </span>
             {/* button text */}
             <span className="relative z-10">
               <span>{text.replace(highlightText, "")}</span>
