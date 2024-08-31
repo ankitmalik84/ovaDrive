@@ -14,10 +14,21 @@ interface TeamMember {
 const teamMembers: TeamMember[] = data.team;
 
 export default function OurTeam() {
-  const leftSliderSettings = {
+  const leftSliderSettings1 = {
     dots: false,
     infinite: true,
     autoplay: true,
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
+    speed: 800,
+    arrows: false,
+  };
+
+  const leftSliderSettings2 = {
+    dots: false,
+    infinite: true,
+    autoplay: true,
+    vertical: true,
     autoplaySpeed: 3000,
     pauseOnHover: false,
     speed: 800,
@@ -51,13 +62,23 @@ export default function OurTeam() {
         {/* Left Side: One slider for content, one for images */}
         <div className="w-full lg:w-1/2 flex flex-col sm:flex-row">
           <div className="w-full sm:w-1/2">
-            <Slider {...leftSliderSettings}>
+            {/* <div> */}
+            <Slider {...leftSliderSettings2}>
               {teamMembers.map((member) => (
-                <div key={member.id} className="h-[280px] sm:h-[420px] w-full">
+                <div key={member.id} className="h-[40px] sm:h-[40px] w-full">
                   <div className="p-1 sm:p-2">
                     <h2 className="text-xl sm:text-2xl font-semibold">
                       {member.name}
                     </h2>
+                  </div>
+                </div>
+              ))}
+            </Slider>
+            {/* </div> */}
+            <Slider {...leftSliderSettings2}>
+              {teamMembers.map((member) => (
+                <div key={member.id} className="h-[280px] sm:h-[420px] w-full">
+                  <div className="p-1 sm:p-2">
                     <p className="mt-2 sm:mt-4 text-sm sm:text-base leading-5 sm:leading-6">
                       {member.data}
                     </p>
@@ -67,7 +88,7 @@ export default function OurTeam() {
             </Slider>
           </div>
           <div className="w-full sm:w-1/2">
-            <Slider {...leftSliderSettings}>
+            <Slider {...leftSliderSettings1}>
               {teamMembers.map((member) => (
                 <div
                   key={member.id}

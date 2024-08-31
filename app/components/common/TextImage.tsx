@@ -64,7 +64,7 @@ const TextImage: FC<TextImageProps> = ({
               trigger: textImageRef.current,
               start: "top 70%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play play play reverse",
             },
           }
         );

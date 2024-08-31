@@ -73,25 +73,25 @@
     {
       "id": 1,
       "name": "Member1",
-      "data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
+      "data": "Lorem1 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
       "img": "/images/member1.jpeg"
     },
     {
       "id": 2,
       "name": "Member2",
-      "data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
+      "data": "Lorem2 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
       "img": "/images/member2.jpeg"
     },
     {
       "id": 3,
       "name": "Member3",
-      "data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
+      "data": "Lorem3 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
       "img": "/images/member3.jpeg"
     },
     {
       "id": 4,
       "name": "Member4",
-      "data": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
+      "data": "Lorem4 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
       "img": "/images/member4.jpeg"
     }
   ],

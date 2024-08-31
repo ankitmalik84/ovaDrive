@@ -32,8 +32,8 @@ export default function Home() {
     const scaleValue = window.innerWidth <= 768 ? 32 : 25;
     gsap.set(heroFirst.current, {
       scale: scaleValue,
-      y: window.innerWidth <= 768 ? 0 : -1151,
-      x: window.innerWidth <= 768 ? 0 : 450,
+      // y: window.innerWidth <= 768 ? 0 : -1151,
+      // x: window.innerWidth <= 768 ? 0 : 450,
       autoAlpha: 0,
     });
 
@@ -124,7 +124,7 @@ export default function Home() {
       {/* Hero Section */}
       <div
         ref={heroSection}
-        className="relative h-[70vh] sm:h-[85vh] overflow-hidden"
+        className="relative h-[70vh] sm:h-[85vh] overflow-hidden justify-center items-center flex flex-col"
       >
         {/* Hero section third layer (background image) */}
         <div
@@ -251,7 +251,7 @@ export default function Home() {
             data-aos="slide-up"
             data-aos-delay="10"
           >
-            <SliderComp data={data.slider1} heading="OvalDrive" />
+            <SliderComp data={data.slider1} heading="OvaDrive" />
           </div>
         </div>
         <div

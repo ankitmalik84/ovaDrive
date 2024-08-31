@@ -23,7 +23,7 @@ const SliderComp: FC<SliderCompProps> = ({ heading, data }) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 2000,
-    pauseOnHover: false,
+    pauseOnHover: true,
     speed: 1000,
     arrows: false,
     responsive: [
