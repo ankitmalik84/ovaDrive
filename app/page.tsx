@@ -245,7 +245,11 @@ export default function Home() {
             />
           </div>
         </div>
-        <div data-aos="zoom-out" id="about-us" className="py-2 sm:py-10">
+        <div
+          data-aos="zoom-out"
+          id="about-us"
+          className="py-2 sm:py-10 h-[100vh] overflow-hidden"
+        >
           <div
             className="flex flex-col my-24 h-[380px]"
             data-aos="slide-up"
@@ -255,14 +259,14 @@ export default function Home() {
           </div>
         </div>
         <div
-          className="py-12 sm:py-16"
+          className="flex items-center h-[100vh] sm:h-[100vh]"
           id="our-team"
           data-aos="zoom-out-up"
           data-aos-delay="50"
         >
           <OurTeam />
         </div>
-        <div className="mt-0 sm:mt-44" data-aos="fade-up">
+        <div className="pt-56 sm:pt-32 h-[100vh]" data-aos="fade-up">
           <Model />
         </div>
       </div>

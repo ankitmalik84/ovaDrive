@@ -34,9 +34,9 @@ const TextImage: FC<TextImageProps> = ({
       if (id !== 3) {
         gsap.fromTo(
           contentRef.current,
-          { scale: 2, autoAlpha: 0 },
+          { y: 125, autoAlpha: 0 },
           {
-            scale: 1,
+            y: 0,
             autoAlpha: 1,
             duration: 1.3,
             ease: "power1.inOut",
@@ -77,7 +77,7 @@ const TextImage: FC<TextImageProps> = ({
   return (
     <div
       ref={textImageRef}
-      className={`w-full max-w-[1600px] h-[100vh] overflow-hidden`}
+      className={`w-full max-w-[1400px] h-[100vh] overflow-hidden`}
     >
       <div
         ref={contentRef}

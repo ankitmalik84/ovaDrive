@@ -56,7 +56,7 @@ export default function OurTeam() {
   };
 
   return (
-    <div className=" mx-auto h-[700px] md:h-[400px] lg:h-[500px]  w-full">
+    <div className=" mx-auto h-[700px] md:h-[400px] lg:h-[500px] w-full">
       <h1 className="text-3xl font-bold mb-10">Our Team</h1>
       <div className="flex flex-col md:flex-row w-full">
         {/* Left Side: One slider for content, one for images */}
@@ -77,7 +77,7 @@ export default function OurTeam() {
             {/* </div> */}
             <Slider {...leftSliderSettings2}>
               {teamMembers.map((member) => (
-                <div key={member.id} className="h-[280px] sm:h-[420px] w-full">
+                <div key={member.id} className="h-[220px] sm:h-[420px] w-full">
                   <div className="p-1 sm:p-2">
                     <p className="mt-2 sm:mt-4 text-sm sm:text-base leading-5 sm:leading-6">
                       {member.data}
@@ -92,7 +92,7 @@ export default function OurTeam() {
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="h-[280px] sm:h-[420px] w-full border-2 relative"
+                  className="h-[290px] sm:h-[420px] w-full border-2 relative"
                 >
                   <Image
                     src={member.img}
