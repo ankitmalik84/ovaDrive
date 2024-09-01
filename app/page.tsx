@@ -44,19 +44,10 @@ export default function Home() {
         end: "bottom bottom",
         pin: true,
         onUpdate: (self) => {
-          if (window.innerWidth >= 768) {
-            if (self.progress > 0.08) {
-              gsap.to(heroFirst.current, { autoAlpha: 1 });
-            } else if (self.progress < 0.08) {
-              gsap.to(heroFirst.current, { autoAlpha: 0 });
-            }
-          } else {
-            if (self.progress > 0.2) {
-              gsap.to(heroFirst.current, { autoAlpha: 1 });
-            } else if (self.progress < 0.2) {
-              gsap.to(heroFirst.current, { autoAlpha: 0 });
-            }
-          }
+          const progressThreshold = window.innerWidth >= 768 ? 0.08 : 0.2;
+          gsap.to(heroFirst.current, {
+            autoAlpha: self.progress > progressThreshold ? 1 : 0,
+          });
         },
         toggleActions: "reverse play play reverse",
       },
@@ -77,12 +68,15 @@ export default function Home() {
         ease: "expo.inOut",
         duration: 1.2,
         onComplete: () => {
-          // Scroll the window a little bit after the animation completes
-          gsap.to(window, {
-            scrollTo: "600", // Scroll down by 600px
-            duration: 1.2, // Duration for scrolling
-            ease: "power1.inOut", // Easing for smoothness
-          });
+          const screenHeight = window.innerHeight;
+          if (window.scrollY < 2 * screenHeight) {
+            // Scroll the window a little bit after the animation completes
+            gsap.to(window, {
+              scrollTo: { y: 600 }, // Scroll down by 600px
+              duration: 1.2, // Duration for scrolling
+              ease: "power1.inOut", // Easing for smoothness
+            });
+          }
         },
       },
       "<"
