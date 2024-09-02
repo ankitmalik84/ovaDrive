@@ -116,7 +116,7 @@ export default function OurTeam() {
               return (
                 <div key={index} className="h-[420px] pt-[55px]">
                   <div className="p-1">
-                    <div className="h-[360px] w-full border-2 relative">
+                    <div className="h-[360px] w-full relative">
                       <Image
                         src={teamMembers[nextIndex1].img}
                         alt={teamMembers[nextIndex1].name}

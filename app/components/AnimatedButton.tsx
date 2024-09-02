@@ -44,7 +44,7 @@ const AnimatedButton: FC<AnimatedButtonProps> = ({
       <div className="absolute bottom-[-15px] right-[-5px] opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100">
         <PiStarFour className="text-gray-200 text-lg" />
       </div>
-      <div className=" transition-rotate group-hover:-rotate-[13deg]">
+      <div className=" transition-rotate group-hover:-rotate-[10deg]">
         <div className="flex z-10 bg-black rounded-2xl transform transition-transform duration-100 ease-out group-hover:scale-105 group-hover:-translate-x-1 group-hover:translate-y-2">
           <button
             type="button"

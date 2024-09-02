@@ -81,7 +81,7 @@ const TextImage: FC<TextImageProps> = ({
     >
       <div
         ref={contentRef}
-        className={`mx-auto flex gap-3 h-[100vh] items-center  ${
+        className={`mx-auto flex gap-3 sm:gap-4 md:gap-12 h-[100vh] items-center  ${
           position === "right"
             ? "flex-col sm:flex-row-reverse"
             : "flex-col sm:flex-row"

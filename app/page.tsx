@@ -200,7 +200,7 @@ export default function Home() {
                 y="50%"
                 textAnchor="middle"
                 dy=".35em"
-                className="text-[16vw] md:text-[12vw] font-extrabold flex justify-center"
+                className="text-[16vw] md:text-[10vw] font-extrabold flex justify-center"
                 fill="black"
               >
                 OVA DRIVE
