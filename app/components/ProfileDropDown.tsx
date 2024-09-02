@@ -1,42 +1,89 @@
 "use client";
-import { useState } from "react";
+
+import { useRef, useEffect } from "react";
 import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { RiLogoutBoxRLine } from "react-icons/ri";
+
 interface ProfileDropDownProps {
   email: any;
+  isOpen: any;
+  setIsOpen: (open: any) => void;
 }
 
-const ProfileDropDown: React.FC<ProfileDropDownProps> = ({ email }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const session = useSession();
+export default function ProfileDropDown({
+  email,
+  isOpen,
+  setIsOpen,
+}: ProfileDropDownProps) {
+  const { data: session } = useSession();
   const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const path = usePathname();
+
   const handleLogout = () => {
     signOut();
     router.push("/signin");
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsOpen]);
+
   return (
-    <>
-      <div
-        onClick={() => {
-          setIsOpen(!isOpen);
-        }}
-        className="bg-pink-600 w-10 h-10 text-center flex justify-center items-center rounded-full font-bold p-2 text-xl cursor-pointer mr-3"
+    <div className="relative flex" ref={dropdownRef}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-10 h-10 rounded-full font-bold text-xl bg-pink-600 text-white hover:bg-pink-700"
       >
-        {session?.data?.user?.email?.charAt(0)}
-      </div>
+        {session?.user?.email?.charAt(0).toUpperCase() ??
+          email.charAt(0).toUpperCase()}
+      </button>
       {isOpen && (
-        <div className="absolute top-[72px] right-4 sm:right-16 mx-2 md:mx-4 border-2 rounded-lg">
+        <div
+          className={`
+          ${
+            path.split("/")[1] === "documentation"
+              ? "absolute  lg:top-14 md:-left-20 rounded-2xl"
+              : "absolute lg:rounded-l-none lg:border-l-0 lg:left-7 rounded-2xl lg:rounded-full"
+          }
+          mt-[56px] lg:-mt-2 w-28 lg:w-32 -right-2 lg:right-auto h-14  shadow-lg bg-transparent border border-[#ffffff88]  p-2`}
+        >
           <div
-            onClick={handleLogout}
-            className="p-1 bg-customBlack2 border-1 rounded-lg shadow-md cursor-pointer"
+            className="justify-end items-center"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
           >
-            Log Out
+            <button
+              onClick={handleLogout}
+              className={`w-full flex gap-2 
+              ${
+                path.split("/")[1] === "documentation"
+                  ? "justify-center"
+                  : "justify-end"
+              }
+              text-center py-2 text-base text-white hover:text-white-900 font-bold`}
+              role="menuitem"
+            >
+              <RiLogoutBoxRLine className="text-white text-xl text-bold" />
+              Log Out
+            </button>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
-};
-
-export default ProfileDropDown;
+}

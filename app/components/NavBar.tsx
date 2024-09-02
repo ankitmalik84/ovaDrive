@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Hamburger from "hamburger-react";
@@ -9,22 +9,28 @@ import ProfileDropDown from "@/app/components/ProfileDropDown";
 import useOnClickOutside from "@/app/hook/useOnClickOutside";
 
 const NavBar: React.FC = () => {
-  // const [isClient, setIsClient] = useState(false);
   const session = useSession();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState("Home");
   const ref = useRef<HTMLDivElement | null>(null);
+  const [screenSize, setScreenSize] = useState(0);
+  const [hoveredItem, setHoveredItem] = useState<number | null>(null); // New state for hovered item
+
+  const handleResize = () => {
+    setScreenSize(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    handleResize(); // Initial check
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useOnClickOutside(ref, () => setOpen(false));
-
-  // useEffect(() => {
-  //   setIsClient(true);
-  // }, []);
-
-  // if (!isClient) {
-  //   return null;
-  // }
 
   const handleNavClick = (url: string) => {
     if (url.startsWith("#")) {
@@ -71,6 +77,7 @@ const NavBar: React.FC = () => {
     <nav className="py-4 px-4 flex items-center justify-center">
       {path.split("/")[1] === "documentation" ? (
         <>
+          {/* Logo and Page Name for Documentation */}
           <div className="flex items-center space-x-2 w-[17rem]">
             <Link href="/">
               <img
@@ -87,6 +94,7 @@ const NavBar: React.FC = () => {
             </div>
             {!session.data?.user ? (
               <>
+                {/* Button Rendering */}
                 <div className="hidden sm:flex space-x-2 sm:space-x-4">
                   {renderButtons()}
                 </div>
@@ -122,12 +130,23 @@ const NavBar: React.FC = () => {
                 </div>
               </>
             ) : (
-              <ProfileDropDown email={session.data?.user?.email} />
+              <ProfileDropDown
+                email={session.data?.user?.email}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+              />
             )}
           </div>
         </>
       ) : (
-        <div className="fixed z-10 flex justify-between w-[96%] md:w-11/12 lg:w-9/12 border border-[#ffffff88] rounded-full items-center px-1 sm:p-2 bg-white bg-opacity-30 backdrop-blur-md top-6 sm:top-4">
+        <div
+          className={`fixed z-10 flex justify-between w-[97%] md:w-[94%] ${
+            isOpen && screenSize >= 1024 && screenSize < 1280
+              ? "lg:w-[82%] mr-[6rem]"
+              : "lg:w-[90%]"
+          } xl:w-9/12 border border-[#ffffff88] rounded-full items-center px-1 sm:p-2 bg-white bg-opacity-30 backdrop-blur-md top-6 sm:top-4`}
+          onMouseLeave={() => setHoveredItem(null)}
+        >
           <div className="flex items-center space-x-2">
             <Link href="/">
               <img
@@ -137,10 +156,14 @@ const NavBar: React.FC = () => {
               />
             </Link>
           </div>
-          <div className="hidden sm:flex">
-            <ul className="flex space-x-2 md:space-x-5 text-white text-xs md:text-sm items-center">
+          <div className="hidden md:flex">
+            <ul className="flex space-x-2 lg:space-x-3 xl:space-x-4 text-white text-xs md:text-sm items-center">
               {data.navLinks.map((item) => (
-                <li key={item.id}>
+                <li
+                  key={item.id}
+                  onMouseEnter={() => setHoveredItem(item.id)}
+                  className="relative" // Add relative positioning for the dropdown
+                >
                   <Link
                     href={item.url}
                     onClick={() => {
@@ -155,22 +178,57 @@ const NavBar: React.FC = () => {
                   >
                     {item.name}
                   </Link>
+                  {/* Check for subLinks and render them on hover */}
+                  {item.subLinks.length > 0 && hoveredItem === item.id && (
+                    <div
+                      onMouseEnter={() => setHoveredItem(item.id)}
+                      className="absolute z-10 mt-5 bg-customBlack text-white rounded-lg ring-1 ring-white ring-opacity-70"
+                    >
+                      {item.subLinks.map((subLink) => (
+                        <Link
+                          key={subLink.id}
+                          href={subLink.url}
+                          className="block px-4 py-3"
+                          onClick={() => handleNavClick(subLink.url)}
+                        >
+                          {subLink.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="hidden sm:flex">
+          <div className="hidden md:flex gap-2">
             <Button
               text="Get The App"
               bgcolor="bg-customPurple"
               textcolor="text-white"
               bordercolor="border-customPurple"
               height="h-7 sm:h-9"
-              width="w-24 sm:w-28"
+              width="w-24 lg:w-28"
               onClickFn={() => handleNavClick("/")}
             />
+            {!session.data?.user ? (
+              <Button
+                text="Login"
+                bgcolor="bg-transparent"
+                textcolor="text-white"
+                bordercolor="border-white"
+                height="h-7 sm:h-9"
+                width="w-24 lg:w-28"
+                onClickFn={() => router.push("/signin")}
+              />
+            ) : (
+              <ProfileDropDown
+                email={session.data?.user?.email}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+              />
+            )}
           </div>
-          <div className="block sm:hidden">
+          <div className="block md:hidden">
             <Hamburger
               size={20}
               color="#ffffff"
@@ -180,29 +238,35 @@ const NavBar: React.FC = () => {
             {open && (
               <div
                 onClick={(e) => e.stopPropagation()}
-                className="flex z-[900] absolute top-0 right-0 bg-customBlack rounded-lg border-[1px]"
+                className="flex z-[900] absolute top-8 right-8 bg-customBlack rounded-lg border-[1px]"
                 ref={ref}
               >
-                <div className="flex flex-col divide-y-2 w-36">
-                  <ul className="flex flex-col space-y-2 text-sm divide-y-2">
-                    {data.navLinks.map((item) => (
-                      <li key={item.id} className="py-2 pl-2">
-                        <Link
-                          href={item.url}
-                          onClick={() => handleNavClick(item.url)}
-                          className="hover:text-gray-400"
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <button
-                    className="text-sm py-2 pl-2 flex hover:text-gray-400"
-                    onClick={() => handleNavClick("/")}
-                  >
-                    Get The App
-                  </button>
+                <div className="flex flex-col space-y-2 w-32 divide-y-[1px]">
+                  {data.navLinks.map((item) => (
+                    <button
+                      key={item.id}
+                      className="text-sm p-2 flex hover:text-gray-400"
+                      onClick={() => handleNavClick(item.url)}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                  {!session.data?.user && (
+                    <>
+                      <button
+                        className="text-sm p-2 flex hover:text-gray-400"
+                        onClick={() => handleNavClick("/signup")}
+                      >
+                        Sign Up
+                      </button>
+                      <button
+                        className="text-sm p-2 flex hover:text-gray-400"
+                        onClick={() => handleNavClick("/signin")}
+                      >
+                        Login
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             )}
