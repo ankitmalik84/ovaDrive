@@ -206,7 +206,7 @@ const NavBar: React.FC = () => {
               bgcolor="bg-customPurple"
               textcolor="text-white"
               bordercolor="border-customPurple"
-              height="h-7 sm:h-9"
+              height="h-7 sm:h-10"
               width="w-24 lg:w-28"
               onClickFn={() => handleNavClick("/")}
             />
@@ -216,7 +216,7 @@ const NavBar: React.FC = () => {
                 bgcolor="bg-transparent"
                 textcolor="text-white"
                 bordercolor="border-white"
-                height="h-7 sm:h-9"
+                height="h-7 sm:h-10"
                 width="w-24 lg:w-28"
                 onClickFn={() => router.push("/signin")}
               />
