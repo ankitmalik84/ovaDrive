@@ -249,7 +249,7 @@ export default function Home() {
             data-aos="slide-up"
             data-aos-delay="10"
           >
-            <SliderComp data={data.slider1} heading="OvaDrive" />
+            <SliderComp data={data.slider1} heading="About Us" />
           </div>
         </div>
         <div
