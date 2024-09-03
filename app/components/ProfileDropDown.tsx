@@ -69,7 +69,7 @@ export default function ProfileDropDown({
           >
             <button
               onClick={handleLogout}
-              className={`w-full flex gap-2 
+              className={`w-full flex gap-2 items-center h-full
               ${
                 path.split("/")[1] === "documentation"
                   ? "justify-center"
