@@ -75,7 +75,7 @@ export default function ProfileDropDown({
                   ? "justify-center"
                   : "justify-end"
               }
-              text-center py-2 text-base text-white hover:text-white-900 font-bold`}
+              text-center py-2 text-base text-white hover:text-white-900 font-medium`}
               role="menuitem"
             >
               <RiLogoutBoxRLine className="text-white text-xl text-bold" />

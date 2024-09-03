@@ -157,7 +157,7 @@ const NavBar: React.FC = () => {
             </Link>
           </div>
           <div className="hidden md:flex">
-            <ul className="flex space-x-2 lg:space-x-3 xl:space-x-4 text-white text-xs md:text-sm items-center">
+            <ul className="flex space-x-2 lg:space-x-5 xl:space-x-8 text-white text-xs md:text-sm items-center">
               {data.navLinks.map((item) => (
                 <li
                   key={item.id}
@@ -200,7 +200,7 @@ const NavBar: React.FC = () => {
               ))}
             </ul>
           </div>
-          <div className="hidden md:flex gap-2">
+          <div className="hidden md:flex gap-2 items-center">
             <Button
               text="Get The App"
               bgcolor="bg-customPurple"
