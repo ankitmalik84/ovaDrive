@@ -55,9 +55,9 @@ export default function ProfileDropDown({
         <div
           className={`
           ${
-            path.split("/")[1] === "documentation"
-              ? "absolute  lg:top-14 md:-left-20 rounded-2xl"
-              : "absolute lg:rounded-l-none lg:border-l-0 lg:left-7 rounded-2xl lg:rounded-full"
+            path.split("/")[1] === ""
+              ? "absolute lg:rounded-l-none lg:border-l-0 lg:left-7 rounded-2xl lg:rounded-full"
+              : "absolute  lg:top-14 md:-left-20 rounded-2xl"
           }
           mt-[56px] lg:-mt-2 w-28 lg:w-32 -right-2 lg:right-auto h-14  shadow-lg bg-transparent border border-[#ffffff88]  p-2`}
         >
@@ -70,11 +70,7 @@ export default function ProfileDropDown({
             <button
               onClick={handleLogout}
               className={`w-full flex gap-2 items-center h-full
-              ${
-                path.split("/")[1] === "documentation"
-                  ? "justify-center"
-                  : "justify-end"
-              }
+              ${path.split("/")[1] == "" ? "justify-end" : "justify-center"}
               text-center py-2 text-base text-white hover:text-white-900 font-medium`}
               role="menuitem"
             >

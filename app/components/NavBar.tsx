@@ -75,7 +75,7 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className="py-4 px-4 flex items-center justify-center">
-      {path.split("/")[1] === "documentation" ? (
+      {path.split("/")[1] != "" ? (
         <>
           {/* Logo and Page Name for Documentation */}
           <div className="flex items-center space-x-2 w-[17rem]">
