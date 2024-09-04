@@ -6,6 +6,13 @@ import { Button } from "@/app/components/ui/button";
 import { Clock4, Smile, Album, Paperclip, Headphones } from "lucide-react";
 import NavBar from "../components/NavBar";
 
+// WEBSOCKETS IMPLEMENTATION FOR CHAT FUNCTIONALITY AND PRISMA IMPLEMENTATION FOR DB OPERATIONS WILL BE REMAINING
+// IMPLEMENTATION OF SHOW CHATS FOR SELECTED DATE WILL BE REMAINING
+// IMPLEMENTATION OF SCHEDULED ACTIONS WILL BE REMAINING
+// IMPLEMENTATION OF SUMMARY PROMPTS WILL BE REMAINING
+// IMPLEMENTATION OF MEDIA UPLOAD FUNCTIONALITY WILL BE REMAINING
+// IMPLEMENTATION OF CALENDAR FUNCTIONALITY WILL BE REMAINING
+
 export default function ChatPage() {
   const [message, setMessage] = useState("");
   const [showMediaOptions, setShowMediaOptions] = useState(false);
@@ -53,10 +60,12 @@ export default function ChatPage() {
     hour12: true,
   };
 
+  // HANDLE SEND MESSAGE FUNCTIONALITY USING WEBSOCKETS AND SIMULATING MODEL RESPONSE AND ADDING TO DB USING PRISMA
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     const currentTime = new Date().toLocaleTimeString("en-US", options);
 
+    // IF NOT EMPTY MESSAGE SUBMIT THEN PROCESS MESSAGE AND ADD TO DB
     if (message.trim() != "") {
       const newMessage = {
         sender: "user",
@@ -67,7 +76,7 @@ export default function ChatPage() {
       setMessage("");
     }
 
-    // Simulate a model response
+    // Simulate a model response USING WEBSOCKETS AND ADD TO DB
     setTimeout(() => {
       const modelMessage = {
         sender: "model",
@@ -191,6 +200,7 @@ export default function ChatPage() {
               </li>
             </ul>
           </div>
+          {/* Calendar Component */}
           <div className="mt-auto">
             <CalendarComp />
           </div>
@@ -266,6 +276,7 @@ export default function ChatPage() {
             onSubmit={handleSendMessage}
             className="p-4 bg-customBlack2 flex items-center relative z-20 rounded-b-xl max-h-32"
           >
+            {/* media upload options */}
             {showMediaOptions && (
               <div
                 ref={mediaPopUp}
@@ -329,7 +340,7 @@ export default function ChatPage() {
                 style={{ maxHeight: "12rem" }}
               ></textarea>
             </div>
-
+            {/* Send Button */}
             <Button
               type="submit"
               className="ml-2 w-10 h-10 bg-purple-600 rounded-full flex justify-center items-center"
