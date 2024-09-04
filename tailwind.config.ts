@@ -1,11 +1,13 @@
 import type { Config } from "tailwindcss";
-const defaultTheme = require("tailwindcss/defaultTheme");
+import defaultTheme from "tailwindcss/defaultTheme";
+
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     screens: {
       xs: "465px",
@@ -18,6 +20,39 @@ const config: Config = {
         customGray: "#4E4E4E",
         customGray2: "#808080",
         customPurple: "#A600FC",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "#212121", // Changed this to use the exact hex color
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
       },
       backgroundImage: {
         "texture-gradient": "url(/images/hero.png)",
@@ -33,7 +68,7 @@ const config: Config = {
           "conic-gradient(from 270deg at 80% 0%,#212121, #212121, #212121,  #A600FC)",
       },
       fontFamily: {
-        sans: ["Poppins", "sans-serif"],
+        sans: ["Poppins", "sans-serif", ...defaultTheme.fontFamily.sans],
       },
       transitionTimingFunction: {
         "in-expo": "cubic-bezier(0.95, 0.05, 0.795, 0.035)",
@@ -43,12 +78,12 @@ const config: Config = {
     },
   },
   plugins: [
-    function ({ addBase }: { addBase: any }) {
+    function ({ addBase }: { addBase: Function }) {
       addBase({
         body: {
           color: "#ffffff",
           fontFamily: "Poppins, sans-serif",
-          backgroundColor: "#212121",
+          backgroundColor: "#212121", // Changed this to use the exact hex color
         },
       });
     },

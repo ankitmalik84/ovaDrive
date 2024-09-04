@@ -9,7 +9,7 @@
       "id": 6,
       "name": "Products",
       "url": "/",
-      "subLinks": [{ "id": 1, "name": "OvaWeb", "url": "/" }]
+      "subLinks": [{ "id": 1, "name": "OvaWeb", "url": "/chat" }]
     },
     {
       "id": 7,

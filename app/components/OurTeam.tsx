@@ -92,7 +92,7 @@ export default function OurTeam() {
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="h-[290px] sm:h-[420px] w-full border-2 relative"
+                  className="h-[290px] sm:h-[420px] w-full border-2 relative border-white"
                 >
                   <Image
                     src={member.img}
