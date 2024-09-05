@@ -1,12 +1,15 @@
 // app/chat/components/Calendar.tsx
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { Calendar } from "@/app/components/ui/calendar";
 
-export function CalendarComp() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+interface CalendarCompProps {
+  date: Date | undefined;
+  setDate: (date: Date | undefined) => void;
+}
 
+export function CalendarComp({ date, setDate }: CalendarCompProps) {
   return (
     <Calendar
       mode="single"
