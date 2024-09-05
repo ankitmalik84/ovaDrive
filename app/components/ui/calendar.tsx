@@ -33,7 +33,7 @@ function Calendar({
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell:
-          "text-muted-foreground rounded-md w-8 lg:w-[2.75em] sxl:w-8 xl:w-[39px] xxl:w-11 2xl:w-[48px] 3xl:w-14 font-normal text-[0.8rem]",
+          "text-muted-foreground w-8 lg:w-[2.35em] sxl:w-8 xl:w-[39px] xxl:w-11 2xl:w-[48px] 3xl:w-14 font-normal text-[0.8rem]",
         row: "flex w-full mt-2",
         cell: "h-7 xl:h-8 2xl:h-10 w-8 lg:w-[2.1em] sxl:w-8 xl:w-[39px] xxl:w-11 2xl:w-[48px] 3xl:w-14 text-center text-[0.9rem] p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
         day: cn(
@@ -55,10 +55,10 @@ function Calendar({
       components={{
         Caption: ({ displayMonth }) => (
           <div className="flex justify-between items-center p-1">
-            <span className="text-xs xl:text-sm font-medium pl-2">
+            <span className="text-xs xl:text-sm font-medium pl-2 xl:pl-3 2xl:pl-4">
               Chat History
             </span>
-            <span className="text-xs xl:text-sm font-medium pr-2">
+            <span className="text-xs xl:text-sm font-medium pr-2 xl:pr-3 2xl:pr-4">
               {displayMonth.toLocaleString("default", {
                 month: "long",
                 year: "numeric",
