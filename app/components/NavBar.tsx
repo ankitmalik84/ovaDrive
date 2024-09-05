@@ -89,7 +89,7 @@ const NavBar: React.FC = () => {
             <div className="text-white text-md sm:text-lg w-20">OvaDrive</div>
           </div>
           <div className="flex justify-between w-full">
-            <div className="my-auto text-white text-md sm:text-lg">
+            <div className="my-auto text-white text-md sm:text-lg lg:ml-[8%] 2xl:ml-[15%] 3xl:ml-[20%]">
               {pageName}
             </div>
             {!session.data?.user ? (
