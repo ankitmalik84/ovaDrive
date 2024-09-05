@@ -120,10 +120,10 @@ export default function ChatPage() {
         <div className=" lg:w-[22%] xl:w-[23%] m-3 2xl:m-5 hidden lg:flex flex-col">
           {/* Left side Utilities */}
           <div className="flex flex-col">
-            <h2 className="text-sm 2xl:text-base font-semibold mb-4 text-gray-400">
+            <h2 className="text-sm 2xl:text-base font-semibold mb-4 text-customGray2">
               Summary prompts
             </h2>
-            <ul className="space-y-4 3xl:space-y-6">
+            <ul className="space-y-5 3xl:space-y-6">
               <li>
                 <button
                   className="flex items-center w-full text-left text-sm 2xl:text-base"
@@ -166,10 +166,10 @@ export default function ChatPage() {
                 </button>
               </li>
             </ul>
-            <h2 className="text-sm 2xl:text-base font-semibold mt-4 3xl:mt-8 mb-4 text-gray-400">
+            <h2 className="text-sm 2xl:text-base font-semibold mt-4 3xl:mt-8 mb-4 text-customGray2">
               Scheduled actions
             </h2>
-            <ul className="space-y-4 3xl:space-y-6 mb-6">
+            <ul className="space-y-5 3xl:space-y-6 mb-6">
               <li>
                 <button
                   className="flex items-center justify-between w-full text-left"
@@ -179,7 +179,7 @@ export default function ChatPage() {
                     <Clock4 className="mr-2 h-4 2xl:h-6 w-4 2xl:w-6" /> Today's
                     summary
                   </span>
-                  <span className="text-xs text-gray-400">08:30 pm</span>
+                  <span className="text-xs text-customGray2">08:30 pm</span>
                 </button>
               </li>
               <li>
@@ -193,7 +193,7 @@ export default function ChatPage() {
                     <Smile className="mr-2 h-4 2xl:h-6 w-4 2xl:w-6" />{" "}
                     Sentimental score
                   </span>
-                  <span className="text-xs text-gray-400">08:30 pm</span>
+                  <span className="text-xs text-customGray2">08:30 pm</span>
                 </button>
               </li>
               <li>
@@ -207,7 +207,7 @@ export default function ChatPage() {
                     <Album className="mr-2 h-4 2xl:h-6 w-4 2xl:w-6" /> Poem
                     about your day
                   </span>
-                  <span className="text-xs text-gray-400">08:30 pm</span>
+                  <span className="text-xs text-customGray2">08:30 pm</span>
                 </button>
               </li>
             </ul>
@@ -220,6 +220,9 @@ export default function ChatPage() {
 
         {/* Main Chat Area */}
         <div className="flex-1 w-[100%] lg:w-[78%] xl:w-[77%] flex flex-col justify-between rounded-xl bg-customBlack2 relative">
+          <h1 className="absolute z-[99999] hidden lg:flex -top-12 text-white text-base sm:text-lg">
+            Chat
+          </h1>
           {/* Top Navigation */}
           <div className="p-4 flex flex-col gap-2 z-20 rounded-xl relative bg-customBlack2">
             <h2 className="text-lg font-semibold bg-customBlack2">
