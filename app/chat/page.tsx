@@ -1,3 +1,5 @@
+// app/chat/page.tsx
+
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
@@ -28,7 +30,22 @@ export default function ChatPage() {
       time: "10:01 AM",
     },
   ]);
+
   const mediaPopUp = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
+  const options: Intl.DateTimeFormatOptions = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  };
+
+  // Handle scroll to the bottom when messages are updated
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   // Handle click outside of media options popup
   useEffect(() => {
@@ -49,24 +66,17 @@ export default function ChatPage() {
   // Event handler for message input
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault(); // Prevent the default behavior of the Enter key
-      handleSendMessage(e); // Send the message
+      e.preventDefault();
+      handleSendMessage(e);
     }
   };
 
-  const options: any = {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
-  };
-
-  // HANDLE SEND MESSAGE FUNCTIONALITY USING WEBSOCKETS AND SIMULATING MODEL RESPONSE AND ADDING TO DB USING PRISMA
+  // Handle sending a message and simulate a response from the model
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     const currentTime = new Date().toLocaleTimeString("en-US", options);
 
-    // IF NOT EMPTY MESSAGE SUBMIT THEN PROCESS MESSAGE AND ADD TO DB
-    if (message.trim() != "") {
+    if (message.trim()) {
       const newMessage = {
         sender: "user",
         content: message,
@@ -74,19 +84,20 @@ export default function ChatPage() {
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       setMessage("");
-    }
 
-    // Simulate a model response USING WEBSOCKETS AND ADD TO DB
-    setTimeout(() => {
-      const modelMessage = {
-        sender: "model",
-        content: "The weather is sunny today with a high of 25°C.",
-        time: new Date().toLocaleTimeString("en-US", options),
-      };
-      setMessages((prevMessages) => [...prevMessages, modelMessage]);
-    }, 1000);
+      // Simulate model response after 1 second
+      setTimeout(() => {
+        const modelMessage = {
+          sender: "model",
+          content: "The weather is sunny today with a high of 25°C.",
+          time: new Date().toLocaleTimeString("en-US", options),
+        };
+        setMessages((prevMessages) => [...prevMessages, modelMessage]);
+      }, 1000);
+    }
   };
 
+  // Toggle the media options popup
   const toggleMediaOptions = () => {
     setShowMediaOptions(!showMediaOptions);
   };
@@ -106,12 +117,13 @@ export default function ChatPage() {
       <NavBar />
       <div className="flex gap-2 h-full">
         {/* Left Sidebar */}
-        <div className=" lg:w-[25%] xl:w-[23%] p-2 xl:p-4 hidden lg:flex flex-col">
-          <div className="flex-1">
-            <h2 className="text-sm font-semibold mb-4 text-gray-400">
+        <div className=" lg:w-[22%] xl:w-[23%] m-3 2xl:m-5 hidden lg:flex flex-col">
+          {/* Left side Utilities */}
+          <div className="flex flex-col">
+            <h2 className="text-sm 2xl:text-base font-semibold mb-4 text-gray-400">
               Summary prompts
             </h2>
-            <ul className="space-y-4">
+            <ul className="space-y-4 3xl:space-y-6">
               <li>
                 <button
                   className="flex items-center w-full text-left text-sm 2xl:text-base"
@@ -154,10 +166,10 @@ export default function ChatPage() {
                 </button>
               </li>
             </ul>
-            <h2 className="text-sm font-semibold mt-6 mb-4 text-gray-400">
+            <h2 className="text-sm 2xl:text-base font-semibold mt-4 3xl:mt-8 mb-4 text-gray-400">
               Scheduled actions
             </h2>
-            <ul className="space-y-4 mb-2">
+            <ul className="space-y-4 3xl:space-y-6 mb-6">
               <li>
                 <button
                   className="flex items-center justify-between w-full text-left"
@@ -207,9 +219,9 @@ export default function ChatPage() {
         </div>
 
         {/* Main Chat Area */}
-        <div className="flex-1 w-[100%] lg:w-[75%] xl:w-[77%] flex flex-col justify-between  rounded-xl bg-customBlack2 relative">
+        <div className="flex-1 w-[100%] lg:w-[78%] xl:w-[77%] flex flex-col justify-between rounded-xl bg-customBlack2 relative">
           {/* Top Navigation */}
-          <div className="p-4 flex flex-col gap-2 z-20  relative bg-customBlack2">
+          <div className="p-4 flex flex-col gap-2 z-20 rounded-xl relative bg-customBlack2">
             <h2 className="text-lg font-semibold bg-customBlack2">
               Try features like-
             </h2>
@@ -269,6 +281,8 @@ export default function ChatPage() {
                 </div>
               </div>
             ))}
+            {/* Invisible div to anchor the scroll position */}
+            <div ref={bottomRef} />
           </div>
 
           {/* Message Input */}
