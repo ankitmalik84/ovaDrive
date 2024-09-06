@@ -17,7 +17,6 @@ const NavBar: React.FC = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [screenSize, setScreenSize] = useState(0);
   const [hoveredItem, setHoveredItem] = useState<number | null>(null); // New state for hovered item
-  const [isScrolled, setIsScrolled] = useState(false);
 
   const handleResize = () => {
     setScreenSize(window.innerWidth);
@@ -28,22 +27,6 @@ const NavBar: React.FC = () => {
     handleResize(); // Initial check
     return () => {
       window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  // Scroll listener to detect scroll position
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 150) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -163,15 +146,11 @@ const NavBar: React.FC = () => {
         </>
       ) : (
         <div
-          className={`fixed z-10 flex justify-between w-[97%] ${
+          className={`fixed z-10 flex justify-between w-[97%] md:w-[94%] ${
             isOpen && screenSize >= 1024 && screenSize < 1280
-              ? !isScrolled
-                ? " md:w-[94%] lg:w-[82%] mr-[6rem] xl:w-9/12 border"
-                : " md:w-[92%] lg:w-[78%] mr-[6rem] xl:w-8/12 border"
-              : !isScrolled
-              ? " md:w-[94%] lg:w-[90%] xl:w-9/12 border"
-              : " md:w-[92%] lg:w-[86%] xl:w-8/12 border"
-          }  border-[#ffffff88] rounded-full items-center px-1 sm:p-2 bg-white bg-opacity-30 backdrop-blur-md top-6 sm:top-4 transition-all duration-300`}
+              ? "lg:w-[82%] mr-[6rem]"
+              : "lg:w-[90%]"
+          } xl:w-9/12 border border-[#ffffff88] rounded-full items-center px-1 sm:p-2 bg-white bg-opacity-30 backdrop-blur-md top-6 sm:top-4`}
           onMouseLeave={() => setHoveredItem(null)}
         >
           <div className="flex items-center space-x-2">
@@ -238,24 +217,23 @@ const NavBar: React.FC = () => {
               onClickFn={() => handleNavClick("/")}
             />
             {/* secondary Navbar button */}
-            {!isScrolled && // Hide button on scroll
-              (!session.data?.user ? (
-                <Button
-                  text="Login"
-                  bgcolor="bg-transparent"
-                  textcolor="text-white"
-                  bordercolor="border-white"
-                  height="h-7 sm:h-10"
-                  width="w-24 lg:w-28"
-                  onClickFn={() => router.push("/signin")}
-                />
-              ) : (
-                <ProfileDropDown
-                  email={session.data?.user?.email}
-                  isOpen={isOpen}
-                  setIsOpen={setIsOpen}
-                />
-              ))}
+            {!session.data?.user ? (
+              <Button
+                text="Login"
+                bgcolor="bg-transparent"
+                textcolor="text-white"
+                bordercolor="border-white"
+                height="h-7 sm:h-10"
+                width="w-24 lg:w-28"
+                onClickFn={() => router.push("/signin")}
+              />
+            ) : (
+              <ProfileDropDown
+                email={session.data?.user?.email}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+              />
+            )}
           </div>
           {/* Hamburger Menu for Small Screens */}
           <div className="block md:hidden">

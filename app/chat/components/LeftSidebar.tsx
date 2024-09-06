@@ -18,7 +18,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
   setDate,
 }) => {
   return (
-    <div className="lg:w-[22%] xl:w-[23%] m-3 2xl:m-5 hidden lg:flex flex-col">
+    <div className="lg:w-[22%] xl:w-[23%] hidden lg:flex flex-col">
       {/* Left side Utilities */}
       <div className="flex flex-col">
         <h2 className="text-sm 2xl:text-base font-semibold mb-4 text-customGray2">

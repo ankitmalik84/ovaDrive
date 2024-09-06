@@ -208,9 +208,9 @@ export default function ChatPage() {
   }, [date]);
 
   return (
-    <div className="h-screen pb-4 xl:pb-14 2xl:pb-20 pt-2 md:px-12 lg:px-16 ">
+    <div className="h-fit xl:h-full 2xl:h-screen pb-4 2xl:pb-24 pt-2 md:px-12 lg:px-16 ">
       <NavBar />
-      <div className="flex gap-2 h-full">
+      <div className="flex gap-5 2xl:gap-6 3xl:gap-8 h-full">
         <LeftSidebar
           handleSummaryPromptClick={handleSummaryPromptClick}
           handleScheduledActionClick={handleScheduledActionClick}
@@ -218,7 +218,7 @@ export default function ChatPage() {
           setDate={setDate} // Pass setDate to LeftSidebar
         />
         {/* Main Chat Area */}
-        <div className="flex-1 w-[100%] lg:w-[78%] xl:w-[77%] flex flex-col justify-between rounded-xl bg-customBlack2 relative">
+        <div className="flex-1 w-[100%] lg:w-[95%] xl:w-[94%] flex flex-col justify-between rounded-xl bg-customBlack2 relative">
           <h1 className="absolute z-[99999] hidden lg:flex -top-12 text-white text-base sm:text-lg">
             Chat
           </h1>
