@@ -1,8 +1,11 @@
+"use client";
+
+import { useState, useEffect, forwardRef } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import data from "@/app/data.json";
 import Image from "next/image";
+import data from "@/app/data.json";
 
 interface TeamMember {
   id: number;
@@ -13,7 +16,11 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = data.team;
 
-export default function OurTeam() {
+const OurTeam = forwardRef<HTMLDivElement, {}>((props, ref) => {
+  const [currentMemberImage, setCurrentMemberImage] = useState(
+    teamMembers[0].img
+  );
+
   const leftSliderSettings1 = {
     dots: false,
     infinite: true,
@@ -33,6 +40,9 @@ export default function OurTeam() {
     pauseOnHover: false,
     speed: 800,
     arrows: false,
+    afterChange: (current: number) => {
+      setCurrentMemberImage(teamMembers[current].img);
+    },
   };
 
   const rightSliderSettings = {
@@ -45,7 +55,7 @@ export default function OurTeam() {
     pauseOnHover: false,
     speed: 800,
     arrows: false,
-    breakpoints: [
+    responsive: [
       {
         breakpoint: 968,
         settings: {
@@ -55,14 +65,24 @@ export default function OurTeam() {
     ],
   };
 
+  useEffect(() => {
+    if (ref && "current" in ref && ref.current) {
+      (
+        ref.current as HTMLDivElement
+      ).style.backgroundImage = `url(${currentMemberImage})`;
+      (ref.current as HTMLDivElement).style.backgroundSize = "cover";
+      (ref.current as HTMLDivElement).style.backgroundPosition = "center";
+      (ref.current as HTMLDivElement).style.opacity = "0.3";
+    }
+  }, [currentMemberImage, ref]);
+
   return (
-    <div className=" mx-auto h-[700px] md:h-[400px] lg:h-[500px] w-full">
+    <div className="mx-auto h-[700px] md:h-[400px] lg:h-[500px] w-full">
       <h1 className="text-3xl font-bold mb-10">Our Team</h1>
       <div className="flex flex-col md:flex-row w-full">
         {/* Left Side: One slider for content, one for images */}
         <div className="w-full lg:w-1/2 flex flex-col sm:flex-row">
           <div className="w-full sm:w-1/2">
-            {/* <div> */}
             <Slider {...leftSliderSettings2}>
               {teamMembers.map((member) => (
                 <div key={member.id} className="h-[40px] sm:h-[40px] w-full">
@@ -74,7 +94,6 @@ export default function OurTeam() {
                 </div>
               ))}
             </Slider>
-            {/* </div> */}
             <Slider {...leftSliderSettings2}>
               {teamMembers.map((member) => (
                 <div key={member.id} className="h-[220px] sm:h-[420px] w-full">
@@ -134,4 +153,8 @@ export default function OurTeam() {
       </div>
     </div>
   );
-}
+});
+
+OurTeam.displayName = "OurTeam";
+
+export default OurTeam;

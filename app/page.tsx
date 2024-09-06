@@ -1,10 +1,9 @@
 // app/page.tsx
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -15,7 +14,6 @@ import HighLightText2 from "@/app/components/common/HighLightText2";
 import OurTeam from "@/app/components/OurTeam";
 import TextImage from "@/app/components/common/TextImage";
 import NavBar from "./components/NavBar";
-
 import data from "./data.json";
 
 export default function Home() {
@@ -25,16 +23,26 @@ export default function Home() {
   const heroSection = useRef<HTMLDivElement>(null);
   const highText = useRef<HTMLDivElement>(null);
   const highSubText = useRef<HTMLDivElement>(null);
+  const slider = useRef<HTMLDivElement>(null);
+  const team = useRef<HTMLDivElement>(null);
+  const model = useRef<HTMLDivElement>(null);
+  const memberImageRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-    AOS.init();
+  const smoothScroll = useCallback((direction: number) => {
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: {
+        y: `+=${window.innerHeight * direction}`,
+        autoKill: false,
+      },
+      ease: "power2.inOut",
+    });
+  }, []);
 
+  const setupAnimations = useCallback(() => {
     const scaleValue = window.innerWidth <= 768 ? 32 : 25;
     gsap.set(heroFirst.current, {
       scale: scaleValue,
-      // y: window.innerWidth <= 768 ? 0 : -1151,
-      // x: window.innerWidth <= 768 ? 0 : 450,
       autoAlpha: 0,
     });
 
@@ -44,6 +52,7 @@ export default function Home() {
         start: "top top+=80px",
         end: "bottom bottom",
         pin: true,
+        scrub: 3,
         onUpdate: (self) => {
           const progressThreshold = window.innerWidth >= 768 ? 0.08 : 0.2;
           gsap.to(heroFirst.current, {
@@ -59,7 +68,7 @@ export default function Home() {
       y: 0,
       x: 0,
       ease: "expoScale",
-      duration: 1,
+      duration: 2,
     });
 
     tl.to(
@@ -67,54 +76,56 @@ export default function Home() {
       {
         yPercent: -100,
         ease: "expo.inOut",
-        duration: 1.2,
-        onComplete: () => {
-          const screenHeight = window.innerHeight;
-          if (window.scrollY < 2 * screenHeight) {
-            // Scroll the window a little bit after the animation completes
-            gsap.to(window, {
-              scrollTo: { y: 600 }, // Scroll down by 600px
-              duration: 1.2, // Duration for scrolling
-              ease: "power1.inOut", // Easing for smoothness
-            });
-          }
-        },
+        duration: 1.8,
+        scrub: 1,
+        onComplete: () => smoothScroll(0.7),
       },
       "<"
     );
 
-    gsap.fromTo(
-      highText.current,
-      { autoAlpha: 0, y: 100 },
-      {
-        y: 0,
-        autoAlpha: 1,
-        duration: 0.7,
-        ease: "power1.inOut",
-        pin: true,
-        scrollTrigger: {
-          trigger: highSubText.current,
-          start: "top 90%",
-          end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
-        },
-      }
-    );
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+    const animateElement = (
+      element: React.RefObject<HTMLDivElement>,
+      direction: number
+    ) => {
+      gsap.fromTo(
+        element.current,
+        { autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          duration: 0.8,
+          ease: "power2.inOut",
+          scrollTrigger: {
+            trigger: element.current,
+            start: "top 90%",
+            end: "bottom 10%",
+            toggleActions: "play reverse play reverse",
+            onEnter: () => smoothScroll(direction),
+            onEnterBack: () => smoothScroll(-direction),
+          },
+        }
+      );
     };
-  }, []);
+
+    animateElement(highText, 0.95);
+    animateElement(slider, 0.92);
+    animateElement(team, 0.85);
+    animateElement(model, 1);
+  }, [smoothScroll]);
+
   useEffect(() => {
     AOS.init({
       duration: 900,
       easing: "ease-in",
     });
-    AOS.refresh();
-  }, []);
+    setupAnimations();
+
+    return () => {
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
+  }, [setupAnimations]);
 
   return (
-    <div className="px-2 lg:px-12 pt-20 sm:pt-14 overflow-x-clip">
+    <div className="px-2 lg:px-12 pt-20 sm:pt-14 overflow-x-clip transition-all ease-in-out duration-500 scroll-smooth">
       <NavBar />
       {/* Hero Section */}
       <div
@@ -228,7 +239,7 @@ export default function Home() {
           ))}
         </div>
         <div
-          className="flex w-full h-[100vh] lg:w-[64%] mx-auto py-16 sm:py-24 items-center"
+          className="flex w-full h-[100vh] lg:w-[64%] mx-auto py-16 sm:py-24 items-center border-1 border-white"
           ref={highText}
         >
           <div ref={highSubText} className="flex w-full items-center">
@@ -241,27 +252,34 @@ export default function Home() {
           </div>
         </div>
         <div
-          data-aos="zoom-out"
+          ref={slider}
           id="about-us"
-          className="py-2 sm:py-10 h-[100vh] overflow-hidden"
+          className="py-2 sm:py-10 h-[100vh] overflow-hidden border-1 border-white"
         >
-          <div
-            className="flex flex-col my-24 h-[380px]"
-            data-aos="slide-up"
-            data-aos-delay="10"
-          >
+          <div className="flex flex-col my-24 h-[380px]">
             <SliderComp data={data.slider1} heading="About Us" />
           </div>
         </div>
         <div
-          className="flex items-center h-[100vh] sm:h-[100vh]"
+          ref={team}
+          className="flex items-center h-[100vh] border-1 border-white relative"
           id="our-team"
-          data-aos="zoom-out-up"
-          data-aos-delay="50"
         >
-          <OurTeam />
+          <div
+            ref={memberImageRef}
+            className="-ml-12 absolute inset-0 z-0 w-screen h-screen bg-cover transition-all ease-in-out duration-500"
+            style={{
+              filter: "blur(14px)",
+            }}
+          ></div>
+          <div className="relative z-10 w-full">
+            <OurTeam ref={memberImageRef} />
+          </div>
         </div>
-        <div className="pt-56 sm:pt-32 h-[100vh]" data-aos="fade-up">
+        <div
+          ref={model}
+          className="pt-[200px] sm:pt-[10%] h-[100vh] border-1 border-white"
+        >
           <Model />
         </div>
       </div>
