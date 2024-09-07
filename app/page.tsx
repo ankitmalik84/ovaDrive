@@ -66,11 +66,11 @@ export default function Home() {
       // Check if scroll is less than 0.8 screen heights (approximately 0.8 screens)
       const threshold = window.innerHeight * 0.8;
       const scrollY = window.scrollY;
-      if (scrollY < threshold) {
-        // Hide the decoration if the scroll position is less than 1.5 screens
-        gsap.to(decoration.current, { autoAlpha: 0 });
-      } else if (temp.current === team.current) {
-        // Hide the decoration if the scroll position is less than 1.5 screens
+      if (
+        scrollY < threshold ||
+        temp.current === team.current ||
+        temp.current === model.current
+      ) {
         gsap.to(decoration.current, { autoAlpha: 0 });
       } else {
         // Show the decoration if the scroll position is greater than or equal to 1.5 screens
@@ -192,7 +192,7 @@ export default function Home() {
             debouncedSmoothScroll(direction);
           }
 
-          if (ref.current === team.current) {
+          if (ref.current === team.current || ref.current === model.current) {
             gsap.to(decoration.current, {
               autoAlpha: 0,
               duration: 1,
@@ -206,7 +206,7 @@ export default function Home() {
             debouncedSmoothScroll(-direction);
           }
 
-          if (ref.current === team.current) {
+          if (ref.current === team.current || ref.current === model.current) {
             temp.current = ref.current;
             gsap.to(decoration.current, {
               autoAlpha: 0,
