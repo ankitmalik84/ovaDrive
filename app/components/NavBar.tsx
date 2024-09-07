@@ -36,11 +36,14 @@ const NavBar: React.FC = () => {
     if (url.startsWith("#")) {
       const section = document.querySelector(url);
       if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Dispatch a custom event to notify the Home component
+        window.dispatchEvent(new CustomEvent("navClick", { detail: url }));
       }
     } else {
       router.push(url);
     }
+    setOpen(false);
   };
 
   const capitalizeFirstLetter = (string: string): string => {

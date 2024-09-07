@@ -1,9 +1,11 @@
-// app/page.tsx
+//app/page.tsx
 "use client";
 
 import { useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import debounce from "lodash/debounce";
 
 import Button from "@/app/components/common/Button";
 import SliderComp from "@/app/components/common/Slider";
@@ -13,6 +15,9 @@ import OurTeam from "@/app/components/OurTeam";
 import TextImage from "@/app/components/common/TextImage";
 import NavBar from "./components/NavBar";
 import data from "./data.json";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function Home() {
   const heroThird = useRef<HTMLDivElement>(null);
@@ -26,18 +31,32 @@ export default function Home() {
   const model = useRef<HTMLDivElement>(null);
   const memberImageRef = useRef<HTMLDivElement>(null);
 
-  const smoothScroll = useCallback((direction: number) => {
-    gsap.to(window, {
-      duration: 1,
-      scrollTo: {
-        y: `+=${window.innerHeight * direction}`,
-        autoKill: false,
-      },
-      ease: "power2.inOut",
-    });
+  const smoothScroll = useCallback((target: string | number) => {
+    if (typeof target === "string") {
+      const element = document.querySelector(target);
+      if (element) {
+        gsap.to(window, {
+          duration: 1,
+          scrollTo: { y: element, offsetY: 80 },
+          ease: "power2.inOut",
+        });
+      }
+    } else {
+      gsap.to(window, {
+        duration: 1,
+        scrollTo: {
+          y: `+=${window.innerHeight * target}`,
+          autoKill: false,
+        },
+        ease: "power2.inOut",
+      });
+    }
   }, []);
 
-  const setupAnimations = useCallback(() => {
+  // Debounce the smoothScroll function
+  const debouncedSmoothScroll = debounce(smoothScroll, 200);
+
+  const setupHeroAnimations = useCallback(() => {
     const scaleValue = window.innerWidth <= 768 ? 32 : 25;
     gsap.set(heroFirst.current, {
       scale: scaleValue,
@@ -84,43 +103,89 @@ export default function Home() {
       },
       "<"
     );
-    const animateElement = (
-      element: React.RefObject<HTMLDivElement>,
-      direction: number
-    ) => {
-      gsap.fromTo(
-        element.current,
-        { autoAlpha: 0 },
-        {
-          autoAlpha: 1,
-          duration: 0.8,
-          ease: "power2.inOut",
-          scrollTrigger: {
-            trigger: element.current,
-            start: "top 90%",
-            end: "bottom 10%",
-            toggleActions: "play reverse play reverse",
-            onEnter: () => smoothScroll(direction),
-            onEnterBack: () => smoothScroll(-direction),
-          },
-        }
-      );
-    };
+  }, [debouncedSmoothScroll]);
 
-    animateElement(highText, 0.95);
-    animateElement(slider, 0.92);
-    animateElement(team, 0.85);
-    animateElement(model, 1);
-  }, [smoothScroll]);
+  const setupScrollAnimations = useCallback(() => {
+    const elements = [
+      { ref: highText, direction: 0.85 },
+      { ref: slider, direction: 0.8, id: "about-us" },
+      { ref: team, direction: 0.85, id: "our-team" },
+      { ref: model, direction: 1 },
+    ];
+
+    ScrollTrigger.batch(
+      elements.map((el) => el.ref.current),
+      {
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            autoAlpha: 1,
+            stagger: 0.15,
+            overwrite: true,
+            duration: 0.8,
+            ease: "power2.inOut",
+          });
+        },
+        onLeave: (batch) => {
+          gsap.set(batch, { autoAlpha: 0, overwrite: true });
+        },
+        onEnterBack: (batch) => {
+          gsap.to(batch, {
+            autoAlpha: 1,
+            stagger: 0.15,
+            overwrite: true,
+            duration: 0.8,
+            ease: "power2.inOut",
+          });
+        },
+        onLeaveBack: (batch) => {
+          gsap.set(batch, { autoAlpha: 0, overwrite: true });
+        },
+      }
+    );
+
+    elements.forEach(({ ref, direction, id }, index) => {
+      ScrollTrigger.create({
+        trigger: ref.current,
+        markers: false,
+        scrub: 1,
+        start: `top ${88}%`,
+        end: `bottom ${15}%`,
+        onEnter: () => {
+          if (typeof direction === "number") {
+            debouncedSmoothScroll(direction);
+          }
+        },
+        onEnterBack: () => {
+          if (typeof direction === "number") {
+            debouncedSmoothScroll(-direction);
+          }
+        },
+      });
+    });
+  }, [debouncedSmoothScroll]);
 
   useEffect(() => {
-    setupAnimations();
+    setupHeroAnimations();
+    setupScrollAnimations();
+
+    const handleNavClick = (event: CustomEvent) => {
+      const targetId = event.detail;
+      smoothScroll(targetId);
+    };
+
+    window.addEventListener("navClick", handleNavClick as EventListener);
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
+      debouncedSmoothScroll.cancel();
+      window.removeEventListener("navClick", handleNavClick as EventListener);
     };
-  }, [setupAnimations]);
-
+  }, [
+    setupHeroAnimations,
+    setupScrollAnimations,
+    debouncedSmoothScroll,
+    smoothScroll,
+  ]);
   return (
     <div className="px-2 lg:px-12 pt-20 sm:pt-14 overflow-x-clip transition-all ease-in-out duration-500 scroll-smooth">
       <NavBar />
