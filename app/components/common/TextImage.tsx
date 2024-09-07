@@ -138,7 +138,7 @@ const TextImage: FC<TextImageProps> = ({
                 <HighLightText
                   key={index}
                   text={word + " "}
-                  size="text-4xl"
+                  size="text-4xl italic"
                   type="bold"
                 />
               ) : (

@@ -149,7 +149,7 @@ const NavBar: React.FC = () => {
         </>
       ) : (
         <div
-          className={`fixed z-30 flex justify-between w-[97%] md:w-[94%] ${
+          className={`fixed z-50 flex justify-between w-[97%] md:w-[94%] ${
             isOpen && screenSize >= 1024 && screenSize < 1280
               ? "lg:w-[82%] mr-[6rem]"
               : "lg:w-[90%]"
