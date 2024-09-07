@@ -31,6 +31,7 @@ export default function Home() {
   const model = useRef<HTMLDivElement>(null);
   const memberImageRef = useRef<HTMLDivElement>(null);
   const decoration = useRef<HTMLDivElement>(null);
+  var temp: any = useRef<HTMLDivElement>(null);
 
   const smoothScroll = useCallback((target: string | number) => {
     if (typeof target === "string") {
@@ -65,8 +66,10 @@ export default function Home() {
       // Check if scroll is less than 0.8 screen heights (approximately 0.8 screens)
       const threshold = window.innerHeight * 0.8;
       const scrollY = window.scrollY;
-
       if (scrollY < threshold) {
+        // Hide the decoration if the scroll position is less than 1.5 screens
+        gsap.to(decoration.current, { autoAlpha: 0 });
+      } else if (temp.current === team.current) {
         // Hide the decoration if the scroll position is less than 1.5 screens
         gsap.to(decoration.current, { autoAlpha: 0 });
       } else {
@@ -82,7 +85,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []); // Empty dependency array to run only on mount/unmount
+  }, [temp]);
 
   // Debounce the smoothScroll function
   const debouncedSmoothScroll = debounce(smoothScroll, 200);
@@ -132,11 +135,6 @@ export default function Home() {
         scrub: 1,
         onComplete: () => {
           smoothScroll(0.7);
-          gsap.to(decoration.current, {
-            autoAlpha: 1,
-            duration: 1,
-            ease: "power2.inOut",
-          });
         },
       },
       "<"
@@ -189,12 +187,12 @@ export default function Home() {
         start: `top ${88}%`,
         end: `bottom ${15}%`,
         onEnter: () => {
+          temp.current = ref.current;
           if (typeof direction === "number") {
             debouncedSmoothScroll(direction);
           }
 
-          // Specific handling for the team section
-          if (ref.current == team.current) {
+          if (ref.current === team.current) {
             gsap.to(decoration.current, {
               autoAlpha: 0,
               duration: 1,
@@ -203,34 +201,15 @@ export default function Home() {
           }
         },
         onEnterBack: () => {
+          temp.current = ref.current;
           if (typeof direction === "number") {
             debouncedSmoothScroll(-direction);
           }
 
-          // Specific handling for the team section
-          if (ref.current == team.current) {
+          if (ref.current === team.current) {
+            temp.current = ref.current;
             gsap.to(decoration.current, {
               autoAlpha: 0,
-              duration: 1,
-              ease: "power2.inOut",
-            });
-          }
-        },
-        onLeave: () => {
-          // Specific handling for the team section
-          if (ref.current === team.current) {
-            gsap.to(decoration.current, {
-              autoAlpha: 1,
-              duration: 1,
-              ease: "power2.inOut",
-            });
-          }
-        },
-        onLeaveBack: () => {
-          // Specific handling for the team section
-          if (ref.current === team.current) {
-            gsap.to(decoration.current, {
-              autoAlpha: 1,
               duration: 1,
               ease: "power2.inOut",
             });
