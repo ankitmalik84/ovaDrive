@@ -4,8 +4,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 import Button from "@/app/components/common/Button";
 import SliderComp from "@/app/components/common/Slider";
@@ -58,6 +56,10 @@ export default function Home() {
           gsap.to(heroFirst.current, {
             autoAlpha: self.progress > progressThreshold ? 1 : 0,
           });
+          const blurValue = self.progress > 0.5 ? "8px" : "0px";
+          gsap.to(heroThird.current, {
+            filter: `blur(${blurValue})`,
+          });
         },
         toggleActions: "reverse play play reverse",
       },
@@ -82,7 +84,6 @@ export default function Home() {
       },
       "<"
     );
-
     const animateElement = (
       element: React.RefObject<HTMLDivElement>,
       direction: number
@@ -113,10 +114,6 @@ export default function Home() {
   }, [smoothScroll]);
 
   useEffect(() => {
-    AOS.init({
-      duration: 900,
-      easing: "ease-in",
-    });
     setupAnimations();
 
     return () => {
@@ -136,16 +133,12 @@ export default function Home() {
         <div
           id="hero"
           ref={heroThird}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url(/images/hero.png)",
-            filter: "blur(8px)",
-          }}
+          className="absolute inset-0 bg-cover bg-center bg-texture-gradient"
         ></div>
         {/* Hero section second layer (content) */}
         <div
           ref={heroSecond}
-          className="absolute inset-0 flex flex-col items-center px-4 lg:px-12"
+          className="absolute inset-0 flex flex-col items-center px-4 lg:px-12 backdrop-blur-lg"
         >
           <div className="w-full max-w-6xl text-center space-y-4 flex flex-col justify-center h-full">
             <div className="text-white opacity-75 text-md lg:text-lg">
