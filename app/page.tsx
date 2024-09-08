@@ -31,28 +31,29 @@ export default function Home() {
   const model = useRef<HTMLDivElement>(null);
   const memberImageRef = useRef<HTMLDivElement>(null);
   const decoration = useRef<HTMLDivElement>(null);
+
   var temp: any = useRef<HTMLDivElement>(null);
 
-  const smoothScroll = useCallback((target: string | number) => {
-    if (typeof target === "string") {
-      const element = document.querySelector(target);
-      if (element) {
-        gsap.to(window, {
-          duration: 1,
-          scrollTo: { y: element, offsetY: 80 },
-          ease: "power2.inOut",
-        });
-      }
-    } else {
-      gsap.to(window, {
-        duration: 1,
-        scrollTo: {
-          y: `+=${window.innerHeight * target}`,
-          autoKill: false,
-        },
-        ease: "power2.inOut",
-      });
-    }
+  const smoothScroll = useCallback((target: number) => {
+    // if (typeof target === "string") {
+    //   const element = document.querySelector(target);
+    //   if (element) {
+    //     gsap.to(window, {
+    //       duration: 1,
+    //       scrollTo: { y: element, offsetY: 80 },
+    //       ease: "power2.inOut",
+    //     });
+    //   }
+    // } else {
+    gsap.to(window, {
+      duration: 1,
+      scrollTo: {
+        y: `+=${window.innerHeight * target}`,
+        autoKill: false,
+      },
+      ease: "power2.inOut",
+    });
+    // }
   }, []);
 
   // initially set the decoration to be hidden
@@ -88,7 +89,7 @@ export default function Home() {
   }, [temp]);
 
   // Debounce the smoothScroll function
-  const debouncedSmoothScroll = debounce(smoothScroll, 200);
+  // const debouncedSmoothScroll = debounce(smoothScroll, 200);
 
   const setupHeroAnimations = useCallback(() => {
     const scaleValue = window.innerWidth <= 768 ? 32 : 25;
@@ -139,14 +140,14 @@ export default function Home() {
       },
       "<"
     );
-  }, [debouncedSmoothScroll]);
+  }, [smoothScroll]);
 
   const setupScrollAnimations = useCallback(() => {
     const elements = [
-      { ref: highText, direction: 0.85 },
-      { ref: slider, direction: 0.8, id: "about-us" },
-      { ref: team, direction: 0.85, id: "our-team" },
-      { ref: model, direction: 1 },
+      { ref: highText, direction: 0.9 },
+      { ref: slider, direction: 0.9, id: "about-us" },
+      { ref: team, direction: 0.9, id: "our-team" },
+      { ref: model, direction: 0.9 },
     ];
 
     ScrollTrigger.batch(
@@ -158,6 +159,7 @@ export default function Home() {
             stagger: 0.15,
             overwrite: true,
             duration: 0.8,
+            pin: true,
             ease: "power2.inOut",
           });
         },
@@ -182,14 +184,15 @@ export default function Home() {
     elements.forEach(({ ref, direction, id }, index) => {
       ScrollTrigger.create({
         trigger: ref.current,
-        markers: false,
+        // markers: true,
         scrub: 1,
-        start: `top ${88}%`,
-        end: `bottom ${15}%`,
+        start: `top ${90}%`,
+        end: `bottom ${10}%`,
+        // pin: true,
         onEnter: () => {
           temp.current = ref.current;
           if (typeof direction === "number") {
-            debouncedSmoothScroll(direction);
+            smoothScroll(direction);
           }
 
           if (ref.current === team.current || ref.current === model.current) {
@@ -203,7 +206,7 @@ export default function Home() {
         onEnterBack: () => {
           temp.current = ref.current;
           if (typeof direction === "number") {
-            debouncedSmoothScroll(-direction);
+            smoothScroll(-direction);
           }
 
           if (ref.current === team.current || ref.current === model.current) {
@@ -217,7 +220,7 @@ export default function Home() {
         },
       });
     });
-  }, [debouncedSmoothScroll]);
+  }, [smoothScroll]);
 
   useEffect(() => {
     setupHeroAnimations();
@@ -232,13 +235,13 @@ export default function Home() {
 
     return () => {
       ScrollTrigger.getAll().forEach((t) => t.kill());
-      debouncedSmoothScroll.cancel();
+      // debouncedSmoothScroll.cancel();
       window.removeEventListener("navClick", handleNavClick as EventListener);
     };
   }, [
     setupHeroAnimations,
     setupScrollAnimations,
-    debouncedSmoothScroll,
+    // debouncedSmoothScroll,
     smoothScroll,
   ]);
   return (
