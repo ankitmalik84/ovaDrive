@@ -47,11 +47,13 @@ export default function Home() {
     // } else {
     gsap.to(window, {
       duration: 1,
+      markers: true,
       scrollTo: {
         y: `+=${window.innerHeight * target}`,
         autoKill: false,
       },
       ease: "power2.inOut",
+      pin: true,
     });
     // }
   }, []);
@@ -104,7 +106,8 @@ export default function Home() {
         start: "top top+=80px",
         end: "bottom bottom",
         pin: true,
-        scrub: 3,
+        // scrub: 2,
+        // markers: true,
         onUpdate: (self) => {
           const progressThreshold = window.innerWidth >= 768 ? 0.08 : 0.2;
           gsap.to(heroFirst.current, {
@@ -123,8 +126,9 @@ export default function Home() {
       scale: 1,
       y: 0,
       x: 0,
+      scrub: 1,
       ease: "expoScale",
-      duration: 2,
+      duration: 1,
     });
 
     tl.to(
@@ -132,7 +136,7 @@ export default function Home() {
       {
         yPercent: -100,
         ease: "expo.inOut",
-        duration: 1.8,
+        duration: 1,
         scrub: 1,
         onComplete: () => {
           smoothScroll(0.7);
@@ -144,10 +148,10 @@ export default function Home() {
 
   const setupScrollAnimations = useCallback(() => {
     const elements = [
-      { ref: highText, direction: 0.9 },
-      { ref: slider, direction: 0.9, id: "about-us" },
-      { ref: team, direction: 0.9, id: "our-team" },
-      { ref: model, direction: 0.9 },
+      { ref: highText, direction: 0.991 },
+      { ref: slider, direction: 0.991, id: "about-us" },
+      { ref: team, direction: 0.991, id: "our-team" },
+      { ref: model, direction: 0.99 },
     ];
 
     ScrollTrigger.batch(
@@ -161,6 +165,7 @@ export default function Home() {
             duration: 0.8,
             pin: true,
             ease: "power2.inOut",
+            scrub: 0.5, // Smoothens the scrolling
           });
         },
         onLeave: (batch) => {
@@ -186,8 +191,8 @@ export default function Home() {
         trigger: ref.current,
         // markers: true,
         scrub: 1,
-        start: `top ${90}%`,
-        end: `bottom ${10}%`,
+        start: `top ${99.7}%`,
+        end: `bottom ${0.3}%`,
         // pin: true,
         onEnter: () => {
           temp.current = ref.current;

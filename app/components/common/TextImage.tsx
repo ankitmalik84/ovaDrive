@@ -57,11 +57,12 @@ const TextImage: FC<TextImageProps> = ({
         },
         scrollTrigger: {
           trigger: textImageRef.current,
-          start: "top 90%",
-          end: "bottom 10%",
+          start: "top 98%",
+          end: "bottom 2%",
+          // markers: true,
           toggleActions: "play play play reverse",
           onEnter: () => smoothScroll(0.2),
-          onEnterBack: () => smoothScroll(-0.9),
+          onEnterBack: () => smoothScroll(-0.95),
         },
       };
     } else if (id !== 3) {
@@ -74,11 +75,12 @@ const TextImage: FC<TextImageProps> = ({
         },
         scrollTrigger: {
           trigger: textImageRef.current,
-          start: "top 90%",
-          end: "bottom 10%",
+          start: "top 98%",
+          end: "bottom 2%",
+          // markers: true,
           toggleActions: "play stop stop reverse",
-          onEnter: () => smoothScroll(0.9),
-          onEnterBack: () => smoothScroll(-0.9),
+          onEnter: () => smoothScroll(0.95),
+          onEnterBack: () => smoothScroll(-0.95),
         },
       };
     } else {
@@ -92,11 +94,12 @@ const TextImage: FC<TextImageProps> = ({
         },
         scrollTrigger: {
           trigger: textImageRef.current,
-          start: "top 90%",
-          end: "bottom 10%",
+          start: "top 98%",
+          end: "bottom 2%",
+          // markers: true,
           toggleActions: "play play play reverse",
-          onEnter: () => smoothScroll(0.9),
-          onEnterBack: () => smoothScroll(-0.9),
+          onEnter: () => smoothScroll(0.95),
+          onEnterBack: () => smoothScroll(-0.95),
         },
       };
     }
