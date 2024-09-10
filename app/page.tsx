@@ -347,8 +347,8 @@ export default function Home() {
         ].map((image, index) => (
           <div
             key={index}
-            className={`holder overflow-hidden relative ${
-              image.alt === "logo" ? "p-1 w-[20%]" : "w-[15%]"
+            className={`holder overflow-hidden relative  ${
+              image.alt === "logo" ? "p-5 w-[18%]" : "w-[15%]"
             }`} // Add 'relative' to holder to position slide-up correctly
           >
             <Image
