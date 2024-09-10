@@ -107,17 +107,22 @@ export default function Home() {
             onUpdate: () => {
               // Hide or remove the intro animations
               gsap.set(slides, { autoAlpha: 0, display: "none" }); // Hide the intro slides
-              gsap.set(welcome.current, { autoAlpha: 1, pointerEvents: "all" }); // Make the welcome screen interactive
+              gsap.set(welcome.current, { autoAlpha: 1 }); // Make the welcome screen interactive
             },
-            onComplete: () => {
-              // Remove the intro slides from the DOM
-              slides?.remove();
-              intro_last.current?.remove();
-            },
+            // onComplete: () => {
+            //   // Remove the intro slides from the DOM
+            //   slides?.remove();
+            //   intro_last.current?.remove();
+            // },
+          })
+          .to(intro_last.current, {
+            opacity: 0,
           });
       }, comp.current);
 
-      return () => ctx.revert();
+      return () => {
+        ctx.revert();
+      };
     }
   }, []);
 
