@@ -8,7 +8,11 @@ import data from "@/app/data.json";
 import ProfileDropDown from "@/app/components/ProfileDropDown";
 import useOnClickOutside from "@/app/hook/useOnClickOutside";
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  activeSection: string;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ activeSection }) => {
   const session = useSession();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -180,10 +184,14 @@ const NavBar: React.FC = () => {
                       handleNavClick(item.url);
                     }}
                     className={`${
-                      item.name === selected
+                      activeSection === item.name
                         ? "bg-customBlack2 p-2 rounded-full"
                         : ""
-                    } hover:text-gray-400 ease-out duration-300`}
+                    } hover:text-gray-400 ease-in-out-expo duration-300 transition-all ${
+                      ["AboutUs", "Our Team"].includes(item.name)
+                        ? "cursor-default"
+                        : "cursor-pointer"
+                    }`}
                   >
                     {item.name}
                   </Link>

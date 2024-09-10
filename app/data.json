@@ -1,8 +1,8 @@
 {
   "navLinks": [
     { "id": 1, "name": "Home", "url": "/", "subLinks": [] },
-    { "id": 2, "name": "AboutUs", "url": "#about-us", "subLinks": [] },
-    { "id": 3, "name": "Our Team", "url": "#our-team", "subLinks": [] },
+    { "id": 2, "name": "AboutUs", "url": "/", "subLinks": [] },
+    { "id": 3, "name": "Our Team", "url": "/", "subLinks": [] },
     { "id": 4, "name": "Career", "url": "/", "subLinks": [] },
     { "id": 5, "name": "Privacy Policy", "url": "/", "subLinks": [] },
     {
@@ -104,6 +104,12 @@
       "name": "Member4",
       "data": "Lorem4 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
       "img": "/images/member4.jpeg"
+    },
+    {
+      "id": 5,
+      "name": "Member5",
+      "data": "Lorem4 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
+      "img": "/images/member5.png"
     }
   ],
   "documentation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."

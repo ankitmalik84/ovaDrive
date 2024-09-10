@@ -124,7 +124,7 @@ const TextImage: FC<TextImageProps> = ({
   return (
     <div
       ref={textImageRef}
-      className="w-full max-w-[1400px] h-[100vh] overflow-hidden border-1 border-white"
+      className="w-full max-w-[1200px] h-[100vh] overflow-hidden border-1 border-white"
     >
       <div
         ref={contentRef}

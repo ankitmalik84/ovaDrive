@@ -1,7 +1,13 @@
 //app/page.tsx
 "use client";
 
-import { useRef, useEffect, useCallback, useLayoutEffect } from "react";
+import {
+  useRef,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
@@ -43,6 +49,8 @@ export default function Home() {
   const intro_last = useRef<HTMLDivElement>(null);
   const welcome = useRef<HTMLDivElement>(null);
   var temp: any = useRef<HTMLDivElement>(null);
+
+  const [activeSection, setActiveSection] = useState("Home");
 
   useLayoutEffect(() => {
     if (comp.current) {
@@ -198,9 +206,11 @@ export default function Home() {
         // scrub: 2,
         // markers: true,
         onEnter: () => {
+          setActiveSection("Home");
           lockScroll(); // Locks scrolling
         },
         onUpdate: (self) => {
+          setActiveSection("Home");
           const progressThreshold = window.innerWidth >= 768 ? 0.08 : 0.2;
           gsap.to(heroFirst.current, {
             autoAlpha: self.progress > progressThreshold ? 1 : 0,
@@ -233,7 +243,7 @@ export default function Home() {
         scrub: 1,
         onComplete: () => {
           unlockScroll(); // Unlocks scrolling
-          smoothScroll(0.85);
+          smoothScroll(0.8);
         },
       },
       "<"
@@ -242,9 +252,9 @@ export default function Home() {
 
   const setupScrollAnimations = useCallback(() => {
     const elements = [
-      { ref: highText, direction: 0.991 },
-      { ref: slider, direction: 0.991, id: "about-us" },
-      { ref: team, direction: 0.991, id: "our-team" },
+      { ref: highText, direction: 0.99 },
+      { ref: slider, direction: 0.99, name: "AboutUs" },
+      { ref: team, direction: 0.99, name: "Our Team" },
       { ref: model, direction: 0.99 },
     ];
 
@@ -280,7 +290,7 @@ export default function Home() {
       }
     );
 
-    elements.forEach(({ ref, direction, id }, index) => {
+    elements.forEach(({ ref, direction, name }, index) => {
       ScrollTrigger.create({
         trigger: ref.current,
         // markers: true,
@@ -289,6 +299,7 @@ export default function Home() {
         end: `bottom ${0.3}%`,
         // pin: true,
         onEnter: () => {
+          if (name) setActiveSection(name);
           temp.current = ref.current;
           if (typeof direction === "number") {
             smoothScroll(direction);
@@ -303,6 +314,7 @@ export default function Home() {
           }
         },
         onEnterBack: () => {
+          if (name) setActiveSection(name);
           temp.current = ref.current;
           if (typeof direction === "number") {
             smoothScroll(-direction);
@@ -399,7 +411,7 @@ export default function Home() {
         ></div>
         {/* main Page Content */}
         <div className="z-10 min-h-screen px-2 lg:px-12 pt-20 sm:pt-14 overflow-x-clip transition-all ease-in-out duration-500 scroll-smooth">
-          <NavBar />
+          <NavBar activeSection={activeSection} />
           {/* Hero Section */}
           <div
             ref={heroSection}
