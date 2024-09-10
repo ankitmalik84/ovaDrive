@@ -85,31 +85,36 @@
       "id": 1,
       "name": "Member1",
       "data": "Lorem1 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
-      "img": "/images/member1.jpeg"
+      "img": "/images/member1.jpeg",
+      "linkedin": "https://www.linkedin.com/in/"
     },
     {
       "id": 2,
       "name": "Member2",
       "data": "Lorem2 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
-      "img": "/images/member2.jpeg"
+      "img": "/images/member2.jpeg",
+      "linkedin": "https://www.linkedin.com/in/"
     },
     {
       "id": 3,
       "name": "Member3",
       "data": "Lorem3 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
-      "img": "/images/member3.jpeg"
+      "img": "/images/member3.jpeg",
+      "linkedin": "https://www.linkedin.com/in/"
     },
     {
       "id": 4,
       "name": "Member4",
       "data": "Lorem4 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
-      "img": "/images/member4.jpeg"
+      "img": "/images/member4.jpeg",
+      "linkedin": "https://www.linkedin.com/in/"
     },
     {
       "id": 5,
       "name": "Member5",
       "data": "Lorem4 ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.laboris nisi ut aliquip ex ea commodo consequat. Duis aute deserunt mollit anim id est laborum.",
-      "img": "/images/member5.png"
+      "img": "/images/member5.png",
+      "linkedin": "https://www.linkedin.com/in/"
     }
   ],
   "documentation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."

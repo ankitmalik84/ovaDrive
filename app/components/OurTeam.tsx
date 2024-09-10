@@ -6,12 +6,14 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Image from "next/image";
 import data from "@/app/data.json";
+import { FaLinkedin } from "react-icons/fa";
 
 interface TeamMember {
   id: number;
   name: string;
   data: string;
   img: string;
+  linkedin?: string;
 }
 
 const teamMembers: TeamMember[] = data.team;
@@ -97,10 +99,20 @@ const OurTeam = forwardRef<HTMLDivElement, {}>((props, ref) => {
             <Slider {...leftSliderSettings2}>
               {teamMembers.map((member) => (
                 <div key={member.id} className="h-[220px] sm:h-[420px] w-full">
-                  <div className="p-1 sm:p-2">
+                  <div className="p-1 sm:p-2 flex flex-col gap-1 sm:gap-2">
                     <p className="mt-2 sm:mt-4 text-sm sm:text-base leading-5 sm:leading-6">
                       {member.data}
                     </p>
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-gray-200 transition-colors duration-300"
+                      >
+                        <FaLinkedin size={24} />
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}

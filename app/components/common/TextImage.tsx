@@ -157,7 +157,7 @@ const TextImage: FC<TextImageProps> = ({
             </p>
           )}
         </div>
-        <div className="w-full sm:w-2/5 h-[300px] relative">
+        <div className="w-full sm:w-2/5 min-h-[350px] max-h-[400px] relative">
           <Image
             src={img}
             alt="Text image"
