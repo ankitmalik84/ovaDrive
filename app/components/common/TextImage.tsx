@@ -52,7 +52,7 @@ const TextImage: FC<TextImageProps> = ({
         to: {
           x: 0,
           autoAlpha: 1,
-          duration: 1.5,
+          duration: 1,
           ease: "power1.inOut",
         },
         scrollTrigger: {
@@ -61,8 +61,9 @@ const TextImage: FC<TextImageProps> = ({
           end: "bottom 2%",
           // markers: true,
           toggleActions: "play play play reverse",
-          onEnter: () => smoothScroll(0.2),
+          // onEnter: () => smoothScroll(0.2),
           onEnterBack: () => smoothScroll(-0.95),
+          // onLeave: () => smoothScroll(0.2),
         },
       };
     } else if (id !== 3) {

@@ -218,7 +218,7 @@ export default function Home() {
         duration: 1,
         scrub: 1,
         onComplete: () => {
-          smoothScroll(0.7);
+          smoothScroll(0.8);
         },
       },
       "<"
@@ -336,7 +336,7 @@ export default function Home() {
       {/* Intro Animation */}
       <div
         id="intro-slides"
-        className="absolute -translate-x-[7%] h-screen w-[115%] flex overflow-hidden z-50 items-center justify-between"
+        className="absolute -translate-x-[7%] h-screen w-[115%] flex overflow-hidden z-50 gap-10 items-center justify-between"
       >
         {[
           { src: img1, alt: "Img1" },
@@ -348,7 +348,7 @@ export default function Home() {
           <div
             key={index}
             className={`holder overflow-hidden relative ${
-              image.alt === "logo" ? "p-1 w-56" : "w-52"
+              image.alt === "logo" ? "p-1 w-[20%]" : "w-[15%]"
             }`} // Add 'relative' to holder to position slide-up correctly
           >
             <Image
