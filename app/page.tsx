@@ -179,6 +179,16 @@ export default function Home() {
       autoAlpha: 0,
     });
 
+    // Function to lock scrolling
+    const lockScroll = () => {
+      document.body.style.overflow = "hidden";
+    };
+
+    // Function to unlock scrolling
+    const unlockScroll = () => {
+      document.body.style.overflow = "";
+    };
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: heroSection.current,
@@ -187,6 +197,9 @@ export default function Home() {
         pin: true,
         // scrub: 2,
         // markers: true,
+        onEnter: () => {
+          lockScroll(); // Locks scrolling
+        },
         onUpdate: (self) => {
           const progressThreshold = window.innerWidth >= 768 ? 0.08 : 0.2;
           gsap.to(heroFirst.current, {
@@ -208,6 +221,7 @@ export default function Home() {
       scrub: 1,
       ease: "expoScale",
       duration: 1,
+      // markers: true,
     });
 
     tl.to(
@@ -218,7 +232,8 @@ export default function Home() {
         duration: 1,
         scrub: 1,
         onComplete: () => {
-          smoothScroll(0.9);
+          unlockScroll(); // Unlocks scrolling
+          smoothScroll(0.85);
         },
       },
       "<"
