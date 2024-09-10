@@ -61,9 +61,9 @@ const TextImage: FC<TextImageProps> = ({
           end: "bottom 2%",
           // markers: true,
           toggleActions: "play play play reverse",
-          // onEnter: () => smoothScroll(0.2),
-          onEnterBack: () => smoothScroll(-0.95),
-          // onLeave: () => smoothScroll(0.2),
+          // onEnter: () => smoothScroll(0.5),
+          onEnterBack: () => smoothScroll(-0.98),
+          // onLeave: () => smoothScroll(0.5),
         },
       };
     } else if (id !== 3) {
@@ -80,8 +80,8 @@ const TextImage: FC<TextImageProps> = ({
           end: "bottom 2%",
           // markers: true,
           toggleActions: "play stop stop reverse",
-          onEnter: () => smoothScroll(0.95),
-          onEnterBack: () => smoothScroll(-0.95),
+          onEnter: () => smoothScroll(0.98),
+          onEnterBack: () => smoothScroll(-0.98),
         },
       };
     } else {
@@ -100,7 +100,7 @@ const TextImage: FC<TextImageProps> = ({
           // markers: true,
           toggleActions: "play play play reverse",
           onEnter: () => smoothScroll(0.95),
-          onEnterBack: () => smoothScroll(-0.95),
+          onEnterBack: () => smoothScroll(-0.98),
         },
       };
     }
