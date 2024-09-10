@@ -218,7 +218,7 @@ export default function Home() {
         duration: 1,
         scrub: 1,
         onComplete: () => {
-          smoothScroll(0.8);
+          smoothScroll(0.9);
         },
       },
       "<"
@@ -455,12 +455,12 @@ export default function Home() {
             <svg
               ref={heroFirst}
               className="absolute inset-0 flex items-center justify-center autoAlpha-0 overflow-hidden"
-              height="102vh"
+              height="100vh"
               width="100vw"
             >
               <defs>
                 <mask id="mask">
-                  <rect width="100vw" height="102vh" fill="white" />
+                  <rect width="100vw" height="100vh" fill="white" />
                   <text
                     x="48%"
                     y="50%"
@@ -475,7 +475,7 @@ export default function Home() {
               </defs>
               <rect
                 width="100vw"
-                height="102vh"
+                height="100vh"
                 fill="black"
                 mask="url(#mask)"
               />

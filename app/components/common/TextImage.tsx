@@ -61,9 +61,9 @@ const TextImage: FC<TextImageProps> = ({
           end: "bottom 2%",
           // markers: true,
           toggleActions: "play play play reverse",
-          // onEnter: () => smoothScroll(0.5),
           onEnterBack: () => smoothScroll(-0.98),
-          // onLeave: () => smoothScroll(0.5),
+          // onLeave: () => smoothScroll(0.98),
+          // onLeaveBack: () => smoothScroll(-0.95),
         },
       };
     } else if (id !== 3) {
@@ -86,9 +86,10 @@ const TextImage: FC<TextImageProps> = ({
       };
     } else {
       animation = {
-        from: { x: 800, autoAlpha: 0 },
+        from: { xPercent: 100, yPercent: 100, autoAlpha: 0 },
         to: {
-          x: 0,
+          xPercent: 0,
+          yPercent: 0,
           autoAlpha: 1,
           duration: 1,
           ease: "power1.inOut",
