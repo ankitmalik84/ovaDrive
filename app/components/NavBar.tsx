@@ -9,10 +9,10 @@ import ProfileDropDown from "@/app/components/ProfileDropDown";
 import useOnClickOutside from "@/app/hook/useOnClickOutside";
 
 interface NavBarProps {
-  activeSection: string;
+  activeSection?: string;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ activeSection }) => {
+const NavBar: React.FC<NavBarProps> = ({ activeSection = "" }) => {
   const session = useSession();
   const router = useRouter();
   const [open, setOpen] = useState(false);
