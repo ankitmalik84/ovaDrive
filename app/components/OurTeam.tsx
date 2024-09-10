@@ -79,7 +79,7 @@ const OurTeam = forwardRef<HTMLDivElement, {}>((props, ref) => {
   }, [currentMemberImage, ref]);
 
   return (
-    <div className="mx-auto h-[700px] md:h-[400px] lg:h-[500px] w-full">
+    <div className="mx-auto h-[700px] md:h-[400px] lg:h-[500px] max-w-[1420px]">
       <h1 className="text-3xl font-bold mb-10">Our Team</h1>
       <div className="flex flex-col md:flex-row w-full">
         {/* Left Side: One slider for content, one for images */}
@@ -87,9 +87,12 @@ const OurTeam = forwardRef<HTMLDivElement, {}>((props, ref) => {
           <div className="w-full sm:w-1/2">
             <Slider {...leftSliderSettings2}>
               {teamMembers.map((member) => (
-                <div key={member.id} className="h-[40px] sm:h-[40px] w-full">
+                <div
+                  key={member.id}
+                  className="h-[30px] sm:h-[40px] w-full flex items-center"
+                >
                   <div className="p-1 sm:p-2">
-                    <h2 className="text-xl sm:text-2xl font-semibold">
+                    <h2 className="text-lg sm:text-2xl font-semibold">
                       {member.name}
                     </h2>
                   </div>
@@ -123,7 +126,7 @@ const OurTeam = forwardRef<HTMLDivElement, {}>((props, ref) => {
               {teamMembers.map((member) => (
                 <div
                   key={member.id}
-                  className="h-[290px] sm:h-[420px] w-full border-2 relative border-white"
+                  className="h-[340px] w-full border-2 relative border-white"
                 >
                   <Image
                     src={member.img}
@@ -145,9 +148,9 @@ const OurTeam = forwardRef<HTMLDivElement, {}>((props, ref) => {
               const nextIndex1 = (index + 1) % teamMembers.length;
 
               return (
-                <div key={index} className="h-[420px] pt-[55px]">
+                <div key={index} className="h-[340px] pt-[36px]">
                   <div className="p-1">
-                    <div className="h-[360px] w-full relative">
+                    <div className="h-[300px] w-full relative">
                       <Image
                         src={teamMembers[nextIndex1].img}
                         alt={teamMembers[nextIndex1].name}
