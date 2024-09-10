@@ -348,7 +348,7 @@ export default function Home() {
           <div
             key={index}
             className={`holder overflow-hidden relative  ${
-              image.alt === "logo" ? "p-5 w-[18%]" : "w-[15%]"
+              image.alt === "logo" ? "p-5 w-[17%]" : "w-[15%]"
             }`} // Add 'relative' to holder to position slide-up correctly
           >
             <Image
